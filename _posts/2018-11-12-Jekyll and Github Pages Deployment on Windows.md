@@ -20,9 +20,9 @@ This is a simple tutorial for deploying Jekyll and Github Pages on Windows.
 
 ​    You need to go to official website: http://rubyinstaller.org/downloads/ to download x64 version installer (It depends on your system.)
 
-![](D:\lance-lh.github.io\img\2018-11-12\sp181112_154315.png)
+![](/img/2018-11-12/sp181112_154315.png)
 
-![](D:\lance-lh.github.io\img\2018-11-12\sp181112_154351.png)
+![](/img/2018-11-12/sp181112_154351.png)
 
 ### 2.2 Jekyll installation
 
@@ -62,11 +62,11 @@ This is a simple tutorial for deploying Jekyll and Github Pages on Windows.
   gem install jekyll
   ```
 
-  ![](D:\lance-lh.github.io\img\2018-11-12\2018-11-12.png)
+  ![](/img/2018-11-12/2018-11-12.png)
 
 ### 2.3  Test Jekyll
 
-![](D:\lance-lh.github.io\img\2018-11-12\2018-11-12_154010.png)
+![](/img/2018-11-12/2018-11-12_154010.png)
 
 ### 2.4 Attention
 
@@ -87,6 +87,15 @@ This is a simple tutorial for deploying Jekyll and Github Pages on Windows.
   Open your github SSH setting, copy the key into it.
 
   That's done!
+- display image   
+One way is to use relative address, not absolute address!  
+The other way is *image hosting service* (图床).
+> [An image hosting service allows individuals to upload images to an Internet website. 
+The image host will then store the image onto its server, and show the individual 
+different types of code to allow others to view that image.](https://en.wikipedia.org/wiki/Image_hosting_service)  
+
+  First, you need to upload your images to *image hosting service*,
+  then add images to Markdown by using URL address. 
 
 ## 3. Reference
 
