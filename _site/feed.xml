@@ -5,8 +5,8 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 12 Nov 2018 17:00:09 +0800</pubDate>
-    <lastBuildDate>Mon, 12 Nov 2018 17:00:09 +0800</lastBuildDate>
+    <pubDate>Mon, 12 Nov 2018 19:17:52 +0800</pubDate>
+    <lastBuildDate>Mon, 12 Nov 2018 19:17:52 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -19,9 +19,9 @@
 
 &lt;p&gt;​    You need to go to official website: http://rubyinstaller.org/downloads/ to download x64 version installer (It depends on your system.)&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\lance-lh.github.io\img\2018-11-12\sp181112_154315.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/sp181112_154315.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\lance-lh.github.io\img\2018-11-12\sp181112_154351.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/sp181112_154351.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;22-jekyll-installation&quot;&gt;2.2 Jekyll installation&lt;/h3&gt;
 
@@ -62,13 +62,13 @@
     &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jekyll&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
 
-    &lt;p&gt;&lt;img src=&quot;D:\lance-lh.github.io\img\2018-11-12\2018-11-12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;img src=&quot;/img/2018-11-12/2018-11-12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;23--test-jekyll&quot;&gt;2.3  Test Jekyll&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;D:\lance-lh.github.io\img\2018-11-12\2018-11-12_154010.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/2018-11-12_154010.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;24-attention&quot;&gt;2.4 Attention&lt;/h3&gt;
 
@@ -94,6 +94,19 @@
 
     &lt;p&gt;That’s done!&lt;/p&gt;
   &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;display image &lt;br /&gt;
+One way is to use relative address, not absolute address!&lt;br /&gt;
+The other way is &lt;em&gt;image hosting service&lt;/em&gt; (图床).&lt;/p&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Image_hosting_service&quot;&gt;An image hosting service allows individuals to upload images to an Internet website. 
+The image host will then store the image onto its server, and show the individual 
+different types of code to allow others to view that image.&lt;/a&gt;&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;First, you need to upload your images to &lt;em&gt;image hosting service&lt;/em&gt;,
+then add images to Markdown by using URL address.&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;3-reference&quot;&gt;3. Reference&lt;/h2&gt;
@@ -110,6 +123,33 @@
         <category>Jekyll</category>
         
         <category>SSH</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>IEEE Institution Sign In Problem</title>
+        <description>&lt;h2 id=&quot;content&quot;&gt;Content&lt;/h2&gt;
+
+&lt;p&gt;Generally, we can use IPv6 to visit some websites for school user. While sometimes, the IPv6 address may bring some trouble to us.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/problem.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The proper way is to substitute IPv6 with IPv4 address.&lt;/p&gt;
+
+&lt;p&gt;For this purpose, we need to modify &lt;em&gt;hosts&lt;/em&gt;  file.&lt;/p&gt;
+
+&lt;p&gt;For Windows user, it locates at ` C:\Windows\System32\drivers\etc`.&lt;/p&gt;
+
+&lt;p&gt;The following image shows the instruction:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/ipv6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 12 Nov 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/11/12/IEEE-Institutional-Sign-In-Problem/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/11/12/IEEE-Institutional-Sign-In-Problem/</guid>
+        
+        <category>IPv6</category>
         
         
       </item>
