@@ -41,11 +41,11 @@ gem sources -l
 ```
 - remove official gem source
 ```objc 
-gem sources --remove https://rubygems.org/
+gem source --remove https://rubygems.org/
 ```
 - add a new gem source
 ```objc 
-gem sources --add https://gems.ruby-china.org/
+gem source --add https://gems.ruby-china.org/
 ```
 - ensure official gem source not in the list
 ```objc 
