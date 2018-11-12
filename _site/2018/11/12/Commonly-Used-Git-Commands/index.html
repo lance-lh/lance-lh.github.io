@@ -10,7 +10,7 @@
     <meta name="keywords"  content="">
     <meta name="theme-color" content="">
     
-    <title>IEEE Institution Sign In Problem - lance-lh</title>
+    <title>Commonly Used Git Commands - lance-lh</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -22,7 +22,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2018/11/12/IEEE-Institutional-Sign-In-Problem/">
+    <link rel="canonical" href="http://localhost:4000/2018/11/12/Commonly-Used-Git-Commands/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -173,10 +173,10 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#IPv6" title="IPv6">IPv6</a>
+                        <a class="tag" href="/tags/#Git" title="Git">Git</a>
                         
                     </div>
-                    <h1>IEEE Institution Sign In Problem</h1>
+                    <h1>Commonly Used Git Commands</h1>
                     
                     
                     <h2 class="subheading"></h2>
@@ -200,20 +200,76 @@
                 post-container">
 
 				<h2 id="content">Content</h2>
+<h3 id="enter-the-local-directory-first">Enter the local directory first</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>directory
+</code></pre></div></div>
+<h3 id="initialize-the-folder">Initialize the folder</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+</code></pre></div></div>
+<h3 id="add-files-to-staging-area">Add files to staging area</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add &lt;file&gt;
+git add <span class="nt">-all</span>
+</code></pre></div></div>
+<h3 id="add-files-to-repository">Add files to repository</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> &lt;message&gt;
+</code></pre></div></div>
+<h3 id="show-file-status-of-working-directory">Show file status of working directory</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
+</code></pre></div></div>
+<h3 id="show-modified-content-of-file-in-working-directory">Show modified content of file in working directory</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff &lt;file&gt;
+</code></pre></div></div>
+<h3 id="show-history">Show history</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
+</code></pre></div></div>
+<h3 id="change-version">Change version</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset <span class="nt">--hard</span> commit_id
+git reset <span class="nt">--hard</span> HEAD^
+git reset <span class="nt">--hard</span> HEAD^^
+</code></pre></div></div>
+<h3 id="watch-command-history">Watch command history</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reflog
+</code></pre></div></div>
+<h3 id="discard-changes-in-working-directory">Discard changes in working directory</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout <span class="nt">--file</span>
+</code></pre></div></div>
+<h3 id="remove-files-from-the-working-tree-and-from-the-index">Remove files from the working tree and from the index</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.
+git <span class="nb">rm </span>test.txt
+git commit <span class="nt">-m</span> <span class="s2">"delete test.txt"</span>
+git push  
+2. 
+<span class="nb">rm </span>test.txt
+git commit <span class="nt">-am</span> <span class="s2">"delete test.txt"</span>
+git push  
+3.
+git <span class="nb">rm </span>folder <span class="nt">-r</span> <span class="nt">-f</span> 
+git commit <span class="nt">-m</span> <span class="s2">"delete folder"</span>
+git push  
+</code></pre></div></div>
+<h3 id="connecting-to-github">Connecting to Github</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin git@github.com:username/repository_name.git
+git push <span class="nt">-u</span> origin master
+git push origin master
+</code></pre></div></div>
 
-<p>Generally, we can use IPv6 to visit some websites for school user. While sometimes, the IPv6 address may bring some trouble to us.</p>
+<h3 id="branch-operation">Branch operation</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch
+git checkout <span class="nt">-b</span> dev
+git checkout master
+git merge dev  <span class="c"># merge dev branch into current branch</span>
+git branch <span class="nt">-d</span> dev
+</code></pre></div></div>
+<h3 id="overwrite-local-repo">Overwrite local repo</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch <span class="nt">--all</span> <span class="c"># download remote repo</span>
+git reset <span class="nt">--hard</span> origin/master <span class="c"># HEAD points to the newest version</span>
+</code></pre></div></div>
 
-<p><img src="/img/2018-11-12/problem.png" alt="" /></p>
-
-<p>The proper way is to substitute IPv6 with IPv4 address.</p>
-
-<p>For this purpose, we need to modify <em>hosts</em>  file.</p>
-
-<p>For Windows user, it locates at ` C:\Windows\System32\drivers\etc`.</p>
-
-<p>The following image shows the instruction:</p>
-
-<p><img src="/img/2018-11-12/ipv6.png" alt="" /></p>
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a></li>
+  <li><a href="http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf">Git Cheat Sheet</a></li>
+</ul>
 
 
                 <hr style="visibility: hidden;">
@@ -221,17 +277,17 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/11/12/Commonly-Used-Git-Commands/" data-toggle="tooltip" data-placement="top" title="Commonly Used Git Commands">
+                        <a href="/2018/11/11/Jekyll-and-Github-Pages-Deployment-on-Ubuntu/" data-toggle="tooltip" data-placement="top" title="Jekyll and Github Pages Deployment on Ubuntu">
                         Previous<br>
-                        <span>Commonly Used Git Commands</span>
+                        <span>Jekyll and Github Pages Deployment on Ubuntu</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2018/11/12/Jekyll-and-Github-Pages-Deployment-on-Windows/" data-toggle="tooltip" data-placement="top" title="Jekyll and Github Pages Deployment on Windows">
+                        <a href="/2018/11/12/IEEE-Institutional-Sign-In-Problem/" data-toggle="tooltip" data-placement="top" title="IEEE Institution Sign In Problem">
                         Next<br>
-                        <span>Jekyll and Github Pages Deployment on Windows</span>
+                        <span>IEEE Institution Sign In Problem</span>
                         </a>
                     </li>
                     

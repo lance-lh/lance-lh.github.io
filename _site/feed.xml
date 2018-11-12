@@ -5,8 +5,8 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 12 Nov 2018 19:17:52 +0800</pubDate>
-    <lastBuildDate>Mon, 12 Nov 2018 19:17:52 +0800</lastBuildDate>
+    <pubDate>Mon, 12 Nov 2018 21:35:08 +0800</pubDate>
+    <lastBuildDate>Mon, 12 Nov 2018 21:35:08 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -150,6 +150,89 @@ then add images to Markdown by using URL address.&lt;/p&gt;
         <guid isPermaLink="true">http://localhost:4000/2018/11/12/IEEE-Institutional-Sign-In-Problem/</guid>
         
         <category>IPv6</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Commonly Used Git Commands</title>
+        <description>&lt;h2 id=&quot;content&quot;&gt;Content&lt;/h2&gt;
+&lt;h3 id=&quot;enter-the-local-directory-first&quot;&gt;Enter the local directory first&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;directory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;initialize-the-folder&quot;&gt;Initialize the folder&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;add-files-to-staging-area&quot;&gt;Add files to staging area&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git add &amp;lt;file&amp;gt;
+git add &lt;span class=&quot;nt&quot;&gt;-all&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;add-files-to-repository&quot;&gt;Add files to repository&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &amp;lt;message&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;show-file-status-of-working-directory&quot;&gt;Show file status of working directory&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;show-modified-content-of-file-in-working-directory&quot;&gt;Show modified content of file in working directory&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git diff &amp;lt;file&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;show-history&quot;&gt;Show history&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;change-version&quot;&gt;Change version&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; commit_id
+git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; HEAD^
+git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; HEAD^^
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;watch-command-history&quot;&gt;Watch command history&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reflog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;discard-changes-in-working-directory&quot;&gt;Discard changes in working directory&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout &lt;span class=&quot;nt&quot;&gt;--file&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;remove-files-from-the-working-tree-and-from-the-index&quot;&gt;Remove files from the working tree and from the index&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.
+git &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;test.txt
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;delete test.txt&quot;&lt;/span&gt;
+git push  
+2. 
+&lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;test.txt
+git commit &lt;span class=&quot;nt&quot;&gt;-am&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;delete test.txt&quot;&lt;/span&gt;
+git push  
+3.
+git &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;folder &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; 
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;delete folder&quot;&lt;/span&gt;
+git push  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;connecting-to-github&quot;&gt;Connecting to Github&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git remote add origin git@github.com:username/repository_name.git
+git push &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; origin master
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;branch-operation&quot;&gt;Branch operation&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git branch
+git checkout &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; dev
+git checkout master
+git merge dev  &lt;span class=&quot;c&quot;&gt;# merge dev branch into current branch&lt;/span&gt;
+git branch &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; dev
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;overwrite-local-repo&quot;&gt;Overwrite local repo&lt;/h3&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git fetch &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# download remote repo&lt;/span&gt;
+git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; origin/master &lt;span class=&quot;c&quot;&gt;# HEAD points to the newest version&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;Git教程&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf&quot;&gt;Git Cheat Sheet&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Mon, 12 Nov 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/11/12/Commonly-Used-Git-Commands/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/11/12/Commonly-Used-Git-Commands/</guid>
+        
+        <category>Git</category>
         
         
       </item>
