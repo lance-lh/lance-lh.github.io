@@ -17,7 +17,7 @@ This is a simple tutorial for deploying Jekyll and Github Pages on Ubuntu.
 ## 2. Content
 ### 2.1 Jekyll on Ubuntu
 **1. Requirements**
-    
+​    
    Before you install Jekyll, you should install necessary required dependencies.  
 ```objc
 sudo apt-get install ruby ruby-dev build-essential
@@ -81,7 +81,7 @@ ruby -v
 
 - Jekyll update issue  
 In _config.yml, gem -> plugins
- 
+
 - missing package
 add package name to Gemfile
 or
@@ -90,7 +90,7 @@ gem install package_name
 ```
 
 
-### 3. Reference
+## 3. Reference
 
 - [Jekyll on Ubuntu](https://jekyllrb.com/docs/installation/ubuntu/)
 
