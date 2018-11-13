@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Stay hungry,Stay foolish">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="">
+    
+    <title>Python Project Review - lance-lh</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/11/13/Python-Project-Review-Data-Visualization/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Lance</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                        <a class="tag" href="/tags/#Git" title="Git">Git</a>
+                        
+                    </div>
+                    <h1>Python Project Review</h1>
+                    
+                    
+                    <h2 class="subheading">Data Visualization</h2>
+                    
+                    <span class="meta">Posted by Lance on November 13, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="content">Content</h2>
+<p>You can git clone learning project data_visualization here:</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lance-lh/data_visualization.git
+</code></pre></div></div>
+<p><em>1. simple plot</em></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">input_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">squares</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">input_values</span><span class="p">,</span><span class="n">squares</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Square Numbers"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Value"</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Square of label"</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'both'</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><em>2. scatter</em></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1001</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">x_value</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x_value</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="c1"># colormap
+</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">,</span><span class="n">edgecolors</span><span class="o">=</span><span class="s">'none'</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"Square Numbers"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Value"</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Square of label"</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s">'both'</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s">'major'</span><span class="p">,</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1100000</span><span class="p">])</span>
+<span class="c1"># plt.show()
+</span><span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'squares_plot.png'</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">)</span> <span class="c1"># save png
+</span></code></pre></div></div>
+
+<p><em>3. random walk</em><br />
+1). rw_visual.py</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">random_walk</span> <span class="kn">import</span> <span class="n">RandomWalk</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">rw</span> <span class="o">=</span> <span class="n">RandomWalk</span><span class="p">(</span><span class="mi">50000</span><span class="p">)</span>
+    <span class="n">rw</span><span class="o">.</span><span class="n">fill_walk</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+    <span class="n">point_numbers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">rw</span><span class="o">.</span><span class="n">num_points</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">rw</span><span class="o">.</span><span class="n">x_values</span><span class="p">,</span><span class="n">rw</span><span class="o">.</span><span class="n">y_values</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="n">point_numbers</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s">'none'</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="s">'green'</span><span class="p">,</span><span class="n">edgecolors</span><span class="o">=</span><span class="s">'none'</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">rw</span><span class="o">.</span><span class="n">x_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">rw</span><span class="o">.</span><span class="n">y_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s">'red'</span><span class="p">,</span><span class="n">edgecolors</span><span class="o">=</span><span class="s">'none'</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">keep_running</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">"Make another walk?(y/n): "</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">keep_running</span> <span class="o">==</span> <span class="s">'n'</span><span class="p">:</span>
+        <span class="k">break</span>
+</code></pre></div></div>
+<p>2). random_walk.py</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
+
+<span class="k">class</span> <span class="nc">RandomWalk</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">num_points</span><span class="o">=</span><span class="mi">5000</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_points</span> <span class="o">=</span> <span class="n">num_points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">fill_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_values</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_points</span><span class="p">:</span>
+            <span class="n">x_direction</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">x_distance</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">x_step</span> <span class="o">=</span> <span class="n">x_direction</span> <span class="o">*</span> <span class="n">x_distance</span>
+
+            <span class="n">y_direction</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">y_distance</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+            <span class="n">y_step</span> <span class="o">=</span> <span class="n">y_direction</span> <span class="o">*</span> <span class="n">y_distance</span>
+
+            <span class="k">if</span> <span class="n">x_step</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y_step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">next_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_step</span>
+            <span class="n">next_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">y_step</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">x_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">y_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_y</span><span class="p">)</span>
+</code></pre></div></div>
+<p><em>4. bar</em><br />
+1). die.py</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="k">class</span> <span class="nc">Die</span><span class="p">():</span>
+    <span class="s">'''a class represented dice'''</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">num_sides</span><span class="o">=</span><span class="mi">6</span><span class="p">):</span>
+        <span class="s">'''dice has 6 sides'''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_sides</span> <span class="o">=</span> <span class="n">num_sides</span>
+
+    <span class="k">def</span> <span class="nf">roll</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">'''return a random value within [1,6]'''</span>
+        <span class="k">return</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">num_sides</span><span class="p">)</span>
+</code></pre></div></div>
+<p>2). die_visual.py</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">die</span> <span class="kn">import</span> <span class="n">Die</span>
+<span class="kn">import</span> <span class="nn">pygal</span>
+
+<span class="n">die_1</span> <span class="o">=</span> <span class="n">Die</span><span class="p">()</span>
+<span class="n">die_2</span> <span class="o">=</span> <span class="n">Die</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">roll_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50000</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">die_1</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span> <span class="o">+</span> <span class="n">die_2</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="c1"># print(results)
+</span>
+<span class="n">frequencies</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">max_result</span> <span class="o">=</span> <span class="n">die_1</span><span class="o">.</span><span class="n">num_sides</span> <span class="o">+</span> <span class="n">die_2</span><span class="o">.</span><span class="n">num_sides</span>
+<span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">max_result</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">frequency</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> 
+    <span class="n">frequencies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span>
+
+<span class="n">hist</span> <span class="o">=</span> <span class="n">pygal</span><span class="o">.</span><span class="n">Bar</span><span class="p">()</span>
+
+<span class="n">hist</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">"Results of rolling a D6 and a D10 dice 50000 times."</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">x_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s">'2'</span><span class="p">,</span><span class="s">'3'</span><span class="p">,</span><span class="s">'4'</span><span class="p">,</span><span class="s">'5'</span><span class="p">,</span><span class="s">'6'</span><span class="p">,</span><span class="s">'7'</span><span class="p">,</span><span class="s">'8'</span><span class="p">,</span><span class="s">'9'</span><span class="p">,</span><span class="s">'10'</span><span class="p">,</span><span class="s">'11'</span><span class="p">,</span><span class="s">'12'</span><span class="p">,</span><span class="s">'13'</span><span class="p">,</span><span class="s">'14'</span><span class="p">,</span><span class="s">'15'</span><span class="p">,</span><span class="s">'16'</span><span class="p">]</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">x_titles</span> <span class="o">=</span> <span class="s">"Results"</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">y_title</span> <span class="o">=</span> <span class="s">"Frequency of Result"</span>
+
+<span class="n">hist</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">'D6 + D10'</span><span class="p">,</span><span class="n">frequencies</span><span class="p">)</span>
+<span class="n">hist</span><span class="o">.</span><span class="n">render_to_file</span><span class="p">(</span><span class="s">'die2and10_visual.svg'</span><span class="p">)</span>
+
+</code></pre></div></div>
+<p><em>5. read data from CSV</em></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">csv</span>  
+<span class="n">filename</span> <span class="o">=</span> <span class="s">'death_valley_2014.csv'</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">header_row</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+</code></pre></div></div>
+<p><em>6. read data from json</em></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="s">'population_data.json'</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">pop_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</code></pre></div></div>
+<p><em>7. convert info into python dict</em></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pygal</span>
+<span class="kn">from</span> <span class="nn">pygal.style</span> <span class="kn">import</span> <span class="n">LightColorizedStyle</span> <span class="k">as</span> <span class="n">LCS</span><span class="p">,</span> <span class="n">LightenStyle</span> <span class="k">as</span> <span class="n">LS</span>
+
+<span class="c1"># call Github API and store response
+</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">'https://api.github.com/search/repositories?q=language:python&amp;sort=stars'</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Status code:"</span><span class="p">,</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+
+<span class="n">response_dict</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>    <span class="c1"># convert info into python dict
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Total respositories:"</span><span class="p">,</span><span class="n">response_dict</span><span class="p">[</span><span class="s">'total_count'</span><span class="p">])</span>
+
+<span class="n">repo_dicts</span> <span class="o">=</span> <span class="n">response_dict</span><span class="p">[</span><span class="s">'items'</span><span class="p">]</span>   <span class="c1"># items is a list but contain many dicts  
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Repositories returned:"</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">repo_dicts</span><span class="p">))</span> <span class="c1"># how many repos
+</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Selected information about each repository:"</span><span class="p">)</span>
+<span class="n">names</span><span class="p">,</span> <span class="n">plot_dicts</span> <span class="o">=</span> <span class="p">[],[]</span>
+<span class="k">for</span> <span class="n">repo_dict</span> <span class="ow">in</span> <span class="n">repo_dicts</span><span class="p">:</span>
+    <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">repo_dict</span><span class="p">[</span><span class="s">'name'</span><span class="p">])</span>
+
+    <span class="n">plot_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'value'</span><span class="p">:</span><span class="n">repo_dict</span><span class="p">[</span><span class="s">'stargazers_count'</span><span class="p">],</span>
+        <span class="s">'label'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">repo_dict</span><span class="p">[</span><span class="s">'description'</span><span class="p">]),</span>
+        <span class="s">'xlink'</span><span class="p">:</span> <span class="n">repo_dict</span><span class="p">[</span><span class="s">'html_url'</span><span class="p">]</span>
+        <span class="p">}</span>
+    <span class="n">plot_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plot_dict</span><span class="p">)</span>
+
+<span class="n">my_style</span> <span class="o">=</span> <span class="n">LS</span><span class="p">(</span><span class="s">'#333366'</span><span class="p">,</span><span class="n">base_style</span><span class="o">=</span><span class="n">LCS</span><span class="p">)</span>
+
+<span class="n">my_config</span> <span class="o">=</span> <span class="n">pygal</span><span class="o">.</span><span class="n">Config</span><span class="p">()</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">x_label_rotation</span> <span class="o">=</span> <span class="mi">45</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">show_legend</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">title_font_size</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">label_font_size</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">major_label_font_size</span> <span class="o">=</span> <span class="mi">18</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">truncate_label</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">show_y_guides</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">my_config</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">pygal</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">my_config</span><span class="p">,</span><span class="n">style</span><span class="o">=</span><span class="n">my_style</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">'Most-Starred Python Projects on Github'</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">x_labels</span> <span class="o">=</span> <span class="n">names</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">''</span><span class="p">,</span><span class="n">plot_dicts</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">render_to_file</span><span class="p">(</span><span class="s">'python_repos.svg'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://ehmatthes.github.io/pcc/">Python Crash Course</a></li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/11/12/Python-Project-Review-Alien-Invasion/" data-toggle="tooltip" data-placement="top" title="Python Project Review">
+                        Previous<br>
+                        <span>Python Project Review</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Jekyll" title="Jekyll" rel="2">
+                                    Jekyll
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Git" title="Git" rel="3">
+                                    Git
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Python" title="Python" rel="2">
+                                    Python
+                                </a>
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/lance-lh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Lance 2018
+                    <br>
+                    Theme on <a href="https://github.com/lance-lh/lance-lh.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lance-lh&repo=lance-lh.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
