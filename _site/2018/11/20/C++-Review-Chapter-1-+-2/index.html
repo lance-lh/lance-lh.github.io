@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Stay hungry,Stay foolish">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="">
+    
+    <title>C++ Review - lance-lh</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/11/20/C++-Review-Chapter-1-+-2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Lance</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                    </div>
+                    <h1>C++ Review</h1>
+                    
+                    
+                    <h2 class="subheading">Chapter 1 + 2</h2>
+                    
+                    <span class="meta">Posted by Lance on November 20, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="content">Content</h2>
+<p>You can git clone C++ Review here:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lance-lh/learning-c-plusplus.git
+</code></pre></div></div>
+<h3 id="iostream">iostream</h3>
+
+<ul>
+  <li>istream -&gt; cin</li>
+  <li>ostream -&gt; cout, cerr, clog  (endl)</li>
+</ul>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span><span class="p">;</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="declaration-and-definition">Declaration and Definition</h3>
+
+<p><em>C++ supports separate compilation</em></p>
+
+<p>declaration</p>
+
+<ul>
+  <li>tell compiler the variable name</li>
+  <li>not alloc memory</li>
+</ul>
+
+<p>definition</p>
+
+<ul>
+  <li>alloc memory for variable</li>
+  <li>variable name is the memory unit name</li>
+</ul>
+
+<p>In C++ program, declaration = definition at most cases, except the case that declare an outer variable.</p>
+
+<p>Three cases:</p>
+
+<ol>
+  <li>
+    <p>same file</p>
+
+    <p>declaration = definition</p>
+  </li>
+  <li>
+    <p>multiple files</p>
+
+    <p>u need to declare.</p>
+  </li>
+  <li>
+    <p>for func</p>
+
+    <p>declare first, then def func</p>
+
+    <p>or def first, then just use.</p>
+  </li>
+</ol>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">extern</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>	<span class="c1">// declaration</span>
+<span class="k">extern</span> <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>	<span class="c1">// definition</span>
+</code></pre></div></div>
+
+<h3 id="comment">comment</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//  single line</span>
+
+<span class="cm">/* 
+multiple lines
+*/</span>
+</code></pre></div></div>
+<h3 id="built-in-type">built-in type</h3>
+
+<p><em>Arithmetic type</em></p>
+
+<p>​	int, char, bool, double, long, float…</p>
+
+<p><em>void</em></p>
+
+<h3 id="literal-constant">literal constant</h3>
+
+<ul>
+  <li>value is name</li>
+  <li>cannot change</li>
+  <li>seven categories
+ 	1. int/long
+ 	2. float
+    	3. bool
+       	4. \n, \t, … (non-printable  or escape sequence)
+          	5. string    “       (end)”
+             	6. string connection    (space   \t     enter)
+                	7. multiple lines  (connection   -&gt;   \)</li>
+</ul>
+
+<h3 id="variable">variable</h3>
+
+<p>can be roughly regard as object</p>
+
+<p>object has three properties:</p>
+
+ 	1. use to store data 
+ 	2. have data type 
+ 	3. memory space 
+
+<p>e.g.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">int</span> <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="o">-</span> <span class="nb">type</span> <span class="n">specifier</span>
+<span class="o">-</span> <span class="n">name</span> <span class="nb">list</span>
+<span class="o">-</span> <span class="n">initialization</span>
+<span class="o">-</span> <span class="n">semicolon</span>
+</code></pre></div></div>
+<h3 id="initialization-and-assignment">Initialization and assignment</h3>
+
+<ul>
+  <li>initialization</li>
+</ul>
+
+<p>​	when variable created</p>
+
+<ul>
+  <li>assignment</li>
+</ul>
+
+<p>​	overwrite current value with a new value</p>
+
+<h3 id="指针"><strong>指针</strong></h3>
+
+<p>答案：①一方面，每一种编程语言都使用指针。不止C/C++使用指针。</p>
+
+<blockquote>
+  <p>每一种编程语言都使用指针。C++将指针暴露给了用户(程序员)，而Java和C#等语言则将指针隐藏起来了。</p>
+
+  <p>“Everything uses pointers. C++ just exposes them rather than hiding them,”</p>
+
+  <p>It’s easier to give someone an address to your home than to give a copy of your home to everyone.</p>
+
+  <p>②另一方面</p>
+
+  <p>使用指针的优点和必要性：</p>
+
+  <ul>
+    <li>指针能够有效的表示数据结构；</li>
+    <li>能动态分配内存，实现内存的自由管理；</li>
+    <li>能较方便的使用字符串；</li>
+    <li>便捷高效地使用数组</li>
+    <li>指针直接与数据的储存地址有关，比如：值传递不如地址传递高效，因为值传递先从实参的地址中取出值，再赋值给形参代入函数计算；而指针则把形参的地址直接指向实参地址，使用时直接取出数据，效率提高，特别在频繁赋值等情况下（注意：形参的改变会影响实参的值！）</li>
+  </ul>
+</blockquote>
+
+<h3 id="引用和指针区别"><strong>引用和指针区别？</strong></h3>
+
+<p>本质：引用是别名，指针是地址，具体的：</p>
+
+<blockquote>
+  <p>①从现象上看，指针在运行时可以改变其所指向的值，而引用一旦和某个对象绑定后就不再改变。这句话可以理解为：指针可以被重新赋值以指向另一个不同的对象。但是引用则总是指向在初始化时被指定的对象，以后不能改变，但是指定的对象其内容可以改变。
+②从内存分配上看，程序为指针变量分配内存区域，而不为引用分配内存区域，因为引用声明时必须初始化，从而指向一个已经存在的对象。引用不能指向空值。</p>
+
+  <p>注：标准没有规定引用要不要占用内存，也没有规定引用具体要怎么实现，具体随编译器</p>
+
+  <p>③ 从编译上看，程序在编译时分别将指针和引用添加到符号表上，符号表上记录的是变量名及变量所对应地址。指针变量在符号表上对应的地址值为指针变量的地址值，而引用在符号表上对应的地址值为引用对象的地址值。符号表生成后就不会再改，因此指针可以改变指向的对象（指针变量中的值可以改），而引用对象不能改。这是使用指针不安全而使用引用安全的主要原因。从某种意义上来说引用可以被认为是不能改变的指针。</p>
+
+  <p>④不存在指向空值的引用这个事实，意味着使用引用的代码效率比使用指针的要高。因为在使用引用之前不需要测试它的合法性。相反，指针则应该总是被测试，防止其为空。</p>
+
+  <p>⑤理论上，对于指针的级数没有限制，但是引用只能是一级。如下：</p>
+
+  <p>int** p1;         // 合法。指向指针的指针*</p>
+
+  <p><em>int</em>&amp; p2;         // 合法。指向指针的引用</p>
+
+  <p>int&amp;* p3;         // 非法。指向引用的指针是非法的</p>
+
+  <p>int&amp;&amp; p4;         // 非法。指向引用的引用是非法的</p>
+
+  <p>注意上述读法是从左到右。</p>
+</blockquote>
+
+<h3 id="endl">endl</h3>
+
+<p><code class="highlighter-rouge">endl</code> appends <code class="highlighter-rouge">'\n'</code> to the stream <strong>and</strong> calls <code class="highlighter-rouge">flush()</code> on the stream. So</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>is equivalent to</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+<span class="n">cout</span><span class="p">.</span><span class="n">flush</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>A stream may use an internal buffer which gets actually streamed when the stream is flushed. In case of <code class="highlighter-rouge">cout</code> you may not notice the difference since it’s somehow synchronized (<strong>tied</strong>) with <code class="highlighter-rouge">cin</code>, but for an arbitrary stream, such as file stream, you’ll notice a difference in a multithreaded program, for example.</p>
+
+<h3 id="顶层-const-和-底层const">顶层 const 和 底层const</h3>
+
+<p>首先，<strong>const是一个限定符，被它修饰的变量的值不能改变</strong>。</p>
+
+<p>对于<strong>一般的变量来说，其实没有顶层const和底层const的区别</strong>，    而<em>*只有向指针这类复合类型的基本变量，才有这样的区别。</em></p>
+
+<p>一、 如何区分顶层const和底层const</p>
+
+<p><strong>指针如果添加const修饰符时有两种情况：</strong></p>
+
+<p><strong>1. 指向常量的指针</strong>：代表不能改变其指向内容的指针。声明时const可以放在类型名前后都可，拿int类型来说，声明时：const int和int const 是等价的。声明指向常量的指针也就是底层const，下面举一个例子：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num_a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">int</span> <span class="k">const</span>  <span class="err">\</span><span class="o">*</span><span class="n">p_a</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num_a</span><span class="p">;</span> <span class="c1">//底层const</span>
+<span class="o">*</span><span class="n">p_a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>  <span class="c1">//错误，指向“常量”的指针不能改变所指的对象 </span>
+</code></pre></div></div>
+
+<p>注意：指向“常量”的指针不代表它所指向的内容一定是常量，只是代表不能通过解引用符（操作符*）来改变它所指向的内容。上例中指针p_a指向的内容就不是常量，可以通过赋值语句：num_a=2;  来改变它所指向的内容。</p>
+
+<p><strong>2 . 指针常量</strong>：代表指针本身是常量，声明时必须初始化，之后它存储的地址值就不能再改变。声明时const必须放在指针符号<em>后面，即：</em>const 。声明常量指针就是顶层const，下面举一个例子：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num_b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span><span class="k">const</span> <span class="n">p_b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num_b</span><span class="p">;</span> <span class="c1">//顶层const</span>
+<span class="n">p_b</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num_a</span><span class="p">;</span>  <span class="c1">//错误，常量指针不能改变存储的地址值  </span>
+</code></pre></div></div>
+
+<p>其实顶层const和底层const很简单。</p>
+
+<ol>
+  <li>
+    <p>一个指针本身添加const限定符就是顶层const。（指针被限定则 顶）</p>
+  </li>
+  <li>
+    <p>而指针所指的对象添加const限定符就是底层const。（对象被限则 底）</p>
+  </li>
+</ol>
+
+<p>二、 区分顶层const和底层const的作用</p>
+
+<p>区分后有两个作用。</p>
+
+<ol>
+  <li>
+    <p>执行对象拷贝时有限制，常量的底层const不能赋值给非常量的底层const。</p>
+
+    <p>也就是说，你只要能正确区分顶层const和底层const，你就能避免这样的赋值错误。下面举一个例子：​</p>
+
+    <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num_c</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="err">\</span><span class="o">*</span><span class="n">p_c</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num_c</span><span class="p">;</span>  <span class="c1">//p_c为底层const的指针,还有一点记住  就是不能通过p_c去修改变量的值</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p_d</span> <span class="o">=</span> <span class="n">p_c</span><span class="p">;</span>  <span class="c1">//错误，不能将底层const指针赋值给非底层const指针</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p_d</span> <span class="o">=</span> <span class="n">p_c</span><span class="p">;</span> <span class="c1">//正确，可以将底层const指针复制给底层const指针</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>使用命名的强制类型转换函数const_cast时，需要能够分辨底层const和顶层const，因为const_cast只能改变运算对象的底层const。下面举一个例子：</p>
+
+    <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num_e</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="err">\</span><span class="o">*</span><span class="n">p_e</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">num_e</span><span class="p">;</span> 
+<span class="o">*</span><span class="n">p_e</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>  <span class="c1">//错误，不能改变底层const指针指向的内容</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p_f</span> <span class="o">=</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">p_e</span><span class="p">);</span>  <span class="c1">//正确，const_cast可以改变运算对象的底层const。但是使用时一定要知道num_e不是const的类型。</span>
+<span class="o">*</span><span class="n">p_f</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>  <span class="c1">//正确，非顶层const指针可以改变指向的内容</span>
+<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">num_e</span><span class="p">;</span>  <span class="c1">//输出5</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="指向const对象的指针">指向const对象的指针</h3>
+
+<p>指向const对象的指针就是一个指针，不能通过它来修改它所指向的对象的值
+声明方法：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>const对象在初始化后是不允许对其值进行修改的，因此，我们不能用一个普通指针指向一个const对象，即下面的赋值会引起编译错误：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>否则的话，我们就可以利用普通指针来修改一个const对象的值，那么const也就毫无意义了。
+正确的方法是利用一个指向const对象的指针来获取const对象的地址：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">i</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>比如:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="c1">//这里的p就是指向const的指针。需要用const_cast来强制类型转换 </span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="o">=</span><span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">int</span> <span class="o">*&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> 
+</code></pre></div></div>
+
+<p>这样，利用指向const对象的指针也是不能修改它所指向的const对象的值的。
+需要注意的两点：</p>
+
+<ul>
+  <li>指向const对象的指针本身不是const类型（这也是它与const指针的主要不同点），所以它可以指向另一个const对象</li>
+  <li>指向const对象的指针可以被赋予一个非const对象的地址，但是此时试图通过此指针来修改对象的值的操作是非法的</li>
+</ul>
+
+<h3 id="const指针">const指针</h3>
+
+<p>可以这样理解const指针：
+const指针就是一个指针，它本身就是const类型，所以将它初始化后不能再改变它的指向，即不能让它指向一个新的对象
+声明方法：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="o">*</span><span class="k">const</span> <span class="n">p</span><span class="p">;</span><span class="c1">//指向非const对象的const指针</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="k">const</span> <span class="n">p</span><span class="p">;</span><span class="c1">//指向const对象的const指针</span>
+</code></pre></div></div>
+
+<p>由以上声明方法可以看出，const指针可以指向const对象和非const对象，但是两者的声明方法是不同的。</p>
+
+<p>使用const指针不可以修改其地址值，但是const指针指向非const对象，就可以利用它修改它所指向的对象的值。</p>
+
+<p><strong>(1). 其实要弄清两者的区别，只要明确两点就够了</strong>：
+指针本身是const型还是非const型
+指针所指向的对象是const型还是非const型
+const型变量的值在初始化后是不允许改变的（这是根本），那么const指针其指向是不能变的，const对象其值是不能变的，一切都清楚了
+<strong>(2). 要弄清楚上面的两个问题，有一个很简单的办法</strong>：
+如果指针名前紧邻的关键字为const，那么它就是一个const指针；如果声明指针所指向的对象类型前有const关键字，那么它就是一个指向cosnt对象的指针。
+应用上面的判断方法，const int *const p; 就表示指向const对象int的const指针</p>
+
+<h2 id="reference">Reference</h2>
+
+<ul>
+  <li><a href="https://www.cnblogs.com/gxcdream/p/4805612.html">浅谈C/C++引用和指针的联系和区别</a></li>
+  <li><a href="https://stackoverflow.com/questions/7324843/why-use-endl-when-i-can-use-a-newline-character">Why use endl when I can use a newline character?</a></li>
+  <li><a href="https://www.cnblogs.com/zhangkele/p/9131325.html">c++ primer 中讲的顶层const 和 底层 const 理解</a></li>
+  <li>[<a href="https://www.cnblogs.com/coveted/archive/2011/12/27/2303061.html">指向const对象的指针] 和 [const指针]</a></li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/11/13/Python-Project-Review-Data-Visualization/" data-toggle="tooltip" data-placement="top" title="Python Project Review">
+                        Previous<br>
+                        <span>Python Project Review</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/11/21/C++-Review-Chapter-3/" data-toggle="tooltip" data-placement="top" title="C++ Review">
+                        Next<br>
+                        <span>C++ Review</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Jekyll" title="Jekyll" rel="2">
+                                    Jekyll
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Git" title="Git" rel="3">
+                                    Git
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Python" title="Python" rel="2">
+                                    Python
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#C++" title="C++" rel="2">
+                                    C++
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/lance-lh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Lance 2018
+                    <br>
+                    Theme on <a href="https://github.com/lance-lh/lance-lh.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lance-lh&repo=lance-lh.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

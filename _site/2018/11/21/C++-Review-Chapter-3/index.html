@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Stay hungry,Stay foolish">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="">
+    
+    <title>C++ Review - lance-lh</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/11/21/C++-Review-Chapter-3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Lance</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                    </div>
+                    <h1>C++ Review</h1>
+                    
+                    
+                    <h2 class="subheading">Chapter 3</h2>
+                    
+                    <span class="meta">Posted by Lance on November 21, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="content">Content</h2>
+<p>You can git clone C++ Review here:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lance-lh/learning-c-plusplus.git
+</code></pre></div></div>
+<h3 id="mind-map">Mind map</h3>
+
+<p><img src="/img/cplusplus/Chapter 3.png" alt="" /></p>
+
+<h3 id="字符串字面值">字符串字面值</h3>
+
+<p>字符串字面值是一串常量字符，字符串字面值常量用双引号括起来的零个或多个字符表示，为兼容C语言，C++中所有的字符串字面值都由编译器自动在末尾添加一个空字符。
+字符串没有变量名字，自身表示自身</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"Hello World!"</span> <span class="c1">//simple string literal</span>
+<span class="s">""</span> <span class="c1">//empty string literal</span>
+<span class="s">"</span><span class="se">\n</span><span class="s">CC</span><span class="se">\t</span><span class="s">options</span><span class="se">\t</span><span class="s">file.[cC]</span><span class="se">\n</span><span class="s">"</span> <span class="c1">//string literal using newlines and tabs</span>
+</code></pre></div></div>
+
+<p>字符字面值：<code class="highlighter-rouge">'A' //single quote:character literal</code>
+字符串字面值： <code class="highlighter-rouge">"A" //double quote:character string literal.</code>包含字母<code class="highlighter-rouge">A</code>和空字符的字符串</p>
+
+<p>字符串字面值的连接：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std</span><span class="o">::</span><span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">"a multi-line "</span><span class="o">+</span>
+<span class="s">"string literal"</span><span class="o">+</span>
+<span class="s">" using concatenation"</span>
+<span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>输出 :  <code class="highlighter-rouge">a multi-line string literal using concatenation</code></p>
+
+<h3 id="字符串">字符串</h3>
+
+<p>在<code class="highlighter-rouge">C++</code>中，有两种类型的字符串表示形式：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">C</code>-风格字符串</li>
+  <li><code class="highlighter-rouge">C++</code>引入的<code class="highlighter-rouge">string</code>类</li>
+</ul>
+
+<h4 id="c-风格字符串">C-风格字符串</h4>
+
+<p><code class="highlighter-rouge">C </code>风格的字符串起源于 C 语言，并在 C++ 中继续得到支持。字符串实际上是使用 null 字符<code class="highlighter-rouge"> ‘\0’ </code>终止的一维字符数组。因此，一个以 <code class="highlighter-rouge">null </code>结尾的字符串，包含了组成字符串的字符。下面的声明和初始化创建了一个 <code class="highlighter-rouge">“Hello” </code>字符串。由于在数组的末尾存储了空字符，所以字符数组的大小比单词 <code class="highlighter-rouge">“Hello” </code>的字符数多一个。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">greeting</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="sc">'H'</span><span class="p">,</span> <span class="sc">'e'</span><span class="p">,</span> <span class="sc">'l'</span><span class="p">,</span> <span class="sc">'l'</span><span class="p">,</span> <span class="sc">'o'</span><span class="p">,</span> <span class="sc">'\0'</span><span class="p">};</span>
+</code></pre></div></div>
+
+<p>其实，不需要把 <code class="highlighter-rouge">null</code> 字符放在字符串常量的末尾。C++ 编译器会在初始化数组时，自动把<code class="highlighter-rouge"> ‘\0’ </code>放在字符串的末尾。所以也可以利用下面的形式进行初始化</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">greeting</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"Hello"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>以下是 C/C++ 中定义的字符串的内存表示：</p>
+
+<p><img src="https://img-blog.csdn.net/201803031918422?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva3N3czAyOTI3NTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="" /></p>
+
+<p>C++ 中有大量的函数用来操作以 <code class="highlighter-rouge">null </code>结尾的字符串：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>函数</th>
+      <th>功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>strcpy(s1,s2)</td>
+      <td>复制字符串 s2 到字符串 s1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>strcat(s1,s2)</td>
+      <td>连接字符串 s2 到字符串 s1 的末尾</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>strlen(s1)</td>
+      <td>返回字符串 s1 的长度</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>strcmp(s1,s2)</td>
+      <td>返回s1与s2的比较结果</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>strchr(s1,ch)</td>
+      <td>返回一个指针，指向字符串s1中字符ch的第一次出现的位置</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>strstr(s1,s2)</td>
+      <td>返回一个指针，指向字符串s1中s2的第一次出现的位置</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="c引入的string类">C++引入的string类</h4>
+
+<p>C++ 标准库提供了 <code class="highlighter-rouge">string </code>类类型，支持上述所有的操作，另外还增加了其他更多的功能。比如：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">append() </code>– 在字符串的末尾添加字符</li>
+  <li><code class="highlighter-rouge">find() </code>– 在字符串中查找字符串</li>
+  <li><code class="highlighter-rouge">insert()</code> – 插入字符</li>
+  <li><code class="highlighter-rouge">length() </code>– 返回字符串的长度</li>
+  <li><code class="highlighter-rouge">replace()</code> – 替换字符串</li>
+  <li><code class="highlighter-rouge">substr()</code> – 返回某个子字符串</li>
+</ul>
+
+<p><strong>4种字符串类型</strong></p>
+
+<p>C++中的字符串一般有以下四种类型，</p>
+
+<ul>
+  <li><code class="highlighter-rouge">string</code></li>
+  <li><code class="highlighter-rouge">char*</code></li>
+  <li><code class="highlighter-rouge">const char*</code></li>
+  <li><code class="highlighter-rouge">char[]</code></li>
+</ul>
+
+<p>下面分别做简单介绍，并说明其中的一些区别</p>
+
+<p><strong><code class="highlighter-rouge">string</code></strong>
+<code class="highlighter-rouge">string</code>是一个C++类库中的一个类，它位于名称空间std中，因此必须使用<code class="highlighter-rouge">using</code>编译指令或者<code class="highlighter-rouge">std::string</code>来引用它。它包含了对字符串的各种常用操作，它较<code class="highlighter-rouge">char*</code>的优势是内容可以动态拓展，以及对字符串操作的方便快捷，用+号进行字符串的连接是最常用的操作</p>
+
+<p><strong><code class="highlighter-rouge">char*</code></strong>
+<code class="highlighter-rouge">char* </code>是指向字符串的指针(其实严格来说，它是指向字符串的首个字母，你可以让它指向一串常量字符串。</p>
+
+<p><strong><code class="highlighter-rouge">const char*</code></strong>
+该声明指出，指针指向的是一个<code class="highlighter-rouge">const char</code>类型，即不能通过当前的指针对字符串的内容作出修改</p>
+
+<p>注意这里有两个概念：</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">char * const</code> [指向字符的静态指针]</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">const char *</code> [指向静态字符的指针]</p>
+
+    <p>前者<code class="highlighter-rouge">const</code>修饰的是指针，代表不能改变指针 
+后者<code class="highlighter-rouge">const</code>修饰的是<code class="highlighter-rouge">char</code>，代表字符不能改变，但是指针可以变，也就是说该指针可以指针其他的<code class="highlighter-rouge">const char</code>。</p>
+  </li>
+</ul>
+
+<p><strong>char[]</strong></p>
+
+<p>与<code class="highlighter-rouge">char*</code>与许多相同点，代表字符数组，可以对应一个字符串，如</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span> <span class="n">a</span><span class="o">=</span><span class="s">"string1"</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">b</span><span class="p">[]</span><span class="o">=</span><span class="s">"string2"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>这里<code class="highlighter-rouge">a</code>是一个指向<code class="highlighter-rouge">char</code>变量的指针，<code class="highlighter-rouge">b</code>则是一个<code class="highlighter-rouge">char</code>数组（字符数组） 
+也就是说：</p>
+
+<p>二者的不同点</p>
+
+<p><strong>一，<code class="highlighter-rouge">char*</code>是变量，值可以改变， <code class="highlighter-rouge">char[]</code>是常量，值不能改变！</strong> 
+<code class="highlighter-rouge">a</code>是一个<code class="highlighter-rouge">char</code>型指针变量，其值（指向）可以改变； 
+<code class="highlighter-rouge">b</code>是一个<code class="highlighter-rouge">char</code>型数组的名字，也是该数组首元素的地址，是常量，其值不可以改变</p>
+
+<p><strong>二，<code class="highlighter-rouge">char[]</code>对应的内存区域总是可写，<code class="highlighter-rouge">char*</code>指向的区域有时可写，有时只读</strong></p>
+
+<p>比如：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span> <span class="n">a</span><span class="o">=</span><span class="s">"string1"</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">b</span><span class="p">[]</span><span class="o">=</span><span class="s">"string2"</span><span class="p">;</span>
+<span class="n">gets</span><span class="p">(</span><span class="n">a</span><span class="p">);</span> <span class="c1">//试图将读入的字符串保存到a指向的区域，运行崩溃！ </span>
+<span class="n">gets</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1">//OK</span>
+</code></pre></div></div>
+
+<p><strong>解释</strong>： <code class="highlighter-rouge">a</code>指向的是一个字符串常量，即指向的内存区域只读； 
+<code class="highlighter-rouge">b</code>始终指向他所代表的数组在内存中的位置，始终可写！</p>
+
+<p>注意，若改成这样<code class="highlighter-rouge">gets(a)</code>就合法了：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span> <span class="n">a</span><span class="o">=</span><span class="s">"string1"</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">b</span><span class="p">[]</span><span class="o">=</span><span class="s">"string2"</span><span class="p">;</span>
+<span class="n">a</span><span class="o">=</span><span class="n">b</span><span class="p">;</span> <span class="c1">//a,b指向同一个区域</span>
+<span class="n">gets</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1">//OK</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">b</span><span class="p">)</span> <span class="c1">//会出现gets(a)时输入的结果</span>
+</code></pre></div></div>
+
+<p><strong>解释</strong>： <code class="highlighter-rouge">a</code>的值变成了是字符数组首地址，即<code class="highlighter-rouge">&amp;b[0]</code>，该地址指向的区域是<code class="highlighter-rouge">char *</code>或者说 <code class="highlighter-rouge">char[8]</code>，习惯上称该类型为字符数组，其实也可以称之为“字符串变量”，区域可读可写。</p>
+
+<p><strong>总结</strong>：<code class="highlighter-rouge">char *</code>本身是一个字符指针变量，但是它既可以指向字符串常量，又可以指向字符串变量，指向的类型决定了对应的字符串能不能改变！</p>
+
+<p><strong>三，<code class="highlighter-rouge">char \* </code>和<code class="highlighter-rouge">char[]</code>的初始化操作有着根本区别：</strong> 
+测试代码：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="o">*</span><span class="n">a</span><span class="o">=</span><span class="s">"Hello World"</span><span class="p">;</span> 
+<span class="kt">char</span> <span class="n">b</span><span class="p">[]</span><span class="o">=</span><span class="s">"Hello World"</span><span class="p">;</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">"%s, %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="s">"Hello World"</span><span class="p">,</span> <span class="s">"Hello World"</span><span class="p">);</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">"%s, %d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span>  <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span>                           
+<span class="n">printf</span><span class="p">(</span><span class="s">"%s, %d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span>     <span class="n">b</span><span class="p">,</span>  <span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>结果：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">World</span><span class="err">，</span><span class="mi">13457308</span>
+<span class="n">Hello</span> <span class="n">World</span><span class="err">，</span><span class="mi">13457308</span>    <span class="mi">2030316</span>
+<span class="n">Hello</span> <span class="n">World</span><span class="err">，</span><span class="mi">2030316</span> <span class="mi">2030316</span>
+</code></pre></div></div>
+
+<p>结果可见：尽管都对应了相同的字符串，但<code class="highlighter-rouge">”Hellow World”</code>的地址 和 <code class="highlighter-rouge">a</code>对应的地址相同，与b指向的地址有较大差异；<code class="highlighter-rouge">&amp;a</code> 、<code class="highlighter-rouge">&amp;b</code>都是在同一内存区域，且<code class="highlighter-rouge">&amp;b==b </code>
+根据c内存区域划分知识，我们知道，局部变量都创建在栈区，而常量都创建在文字常量区，显然，<code class="highlighter-rouge">a</code>、<code class="highlighter-rouge">b</code>都是栈区的变量，但是<code class="highlighter-rouge">a</code>指向了常量（字符串常量），<code class="highlighter-rouge">b</code>则指向了变量（字符数组），指向了自己<code class="highlighter-rouge">(&amp;b==b==&amp;b[0])</code>。 
+说明以下问题： 
+<strong><code class="highlighter-rouge">char * a=”string1”;</code>是实现了3个操作</strong>：</p>
+
+<ol>
+  <li>
+    <p>声明一个<code class="highlighter-rouge">char*</code>变量(也就是声明了一个指向<code class="highlighter-rouge">char</code>的指针变量;</p>
+  </li>
+  <li>
+    <p>在内存中的文字常量区中开辟了一个空间存储字符串常量<code class="highlighter-rouge">”string1”</code></p>
+  </li>
+  <li>
+    <p>返回这个区域的地址，作为值，赋给这个字符指针变量<code class="highlighter-rouge">a</code></p>
+
+    <p>最终的结果：指针变量a指向了这一个字符串常量<code class="highlighter-rouge">“string1” </code>
+（注意，如果这时候我们再执行：<code class="highlighter-rouge">char * c=”string1”</code>；则，<code class="highlighter-rouge">c==a</code>，实际上，只会执行上述步骤的1和3，因为这个常量已经在内存中创建）</p>
+  </li>
+</ol>
+
+<p><strong><code class="highlighter-rouge">char b[]=”string2”;</code>则是实现了2个操作：</strong></p>
+
+<ol>
+  <li>声明一个<code class="highlighter-rouge">char </code>的数组，</li>
+  <li>为该数组“赋值”，即将”string2”的每一个字符分别赋值给数组的每一个元素
+最终的结果：“数组的值”（注意不是b的值）等于”string2”，而不是b指向一个字符串常量</li>
+</ol>
+
+<p><strong>实际上， char * a=”string1”; 的写法是不规范的！</strong> 
+因为<code class="highlighter-rouge">a</code>指向了即字符常量，一旦<code class="highlighter-rouge">strcpy(a,”string2”)</code>就糟糕了，试图向只读的内存区域写入，程序会崩溃的！尽管VS下的编译器不会警告，但如果你使用了语法严谨的Linux下的C编译器GCC，或者在windows下使用MinGW编译器就会得到警告。</p>
+
+<p>所以，我们还是应当按照”类型相同赋值”的原则来写代码：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">a</span><span class="o">=</span><span class="s">"string1"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>保证意外赋值语句不会通过编译</p>
+
+<p>另外，关于<code class="highlighter-rouge">char*</code>和<code class="highlighter-rouge">char[]</code>在函数参数中还有一个特殊之处，运行下面的代码</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">fun1</span> <span class="p">(</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p1</span><span class="p">,</span>  <span class="kt">char</span> <span class="n">p2</span><span class="p">[]</span> <span class="p">)</span> <span class="p">{</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"%s %d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">);</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">"%s %d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
+<span class="n">p2</span><span class="o">=</span><span class="s">"asdf"</span><span class="p">;</span> <span class="c1">//通过! 说明p2不是常量！ </span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%s %d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="n">p2</span><span class="p">,</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="n">main</span><span class="p">(</span><span class="err">）</span><span class="p">{</span>
+<span class="kt">char</span> <span class="n">a</span><span class="p">[]</span><span class="o">=</span><span class="s">"Hello"</span><span class="p">;</span>
+<span class="n">fun1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>运行结果：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="mi">3471628</span> <span class="mi">3471332</span>
+<span class="n">Hello</span> <span class="mi">3471628</span> <span class="mi">3471336</span>
+<span class="n">asdf</span> <span class="mi">10704764</span> <span class="mi">3471336</span>
+</code></pre></div></div>
+
+<p>结果出乎意料！上面结果表明p2这时候根本就是一个指针变量！ 
+结论是：作为函数的形式参数，两种写法完全等效的！都是指针变量！</p>
+
+<p><code class="highlighter-rouge">const char*</code>与<code class="highlighter-rouge">char[]</code>的区别：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">a</span><span class="o">=</span><span class="err">”</span><span class="n">string1</span><span class="err">”</span> 
+<span class="kt">char</span> <span class="n">b</span><span class="p">[]</span><span class="o">=</span><span class="err">”</span><span class="n">string2</span><span class="err">”</span><span class="p">;</span> <span class="err">二者的区别在于：</span>
+</code></pre></div></div>
+
+<ol>
+  <li><code class="highlighter-rouge">a</code>是<code class="highlighter-rouge">const char</code> 类型， b是<code class="highlighter-rouge">char const</code>类型 
+（ 或者理解为<code class="highlighter-rouge"> (const char)xx</code> 和 <code class="highlighter-rouge">char (const xx) ）</code></li>
+  <li><code class="highlighter-rouge">a</code>是一个指针变量，<code class="highlighter-rouge">a</code>的值（指向）是可以改变的，但<code class="highlighter-rouge">a</code>只能指向（字符串）常量，指向的区域的内容不可改变；</li>
+  <li><code class="highlighter-rouge">b</code>是一个指针常量，<code class="highlighter-rouge">b</code>的值（指向）不能变；但<code class="highlighter-rouge">b</code>指向的目标（数组b在内存中的区域）的内容是可变的</li>
+  <li>作为函数的声明的参数的时候，<code class="highlighter-rouge">char []</code>是被当做<code class="highlighter-rouge">char *</code>来处理的！两种形参声明写法完全等效！</li>
+</ol>
+
+<p><strong>字符串类型之间的转换： <code class="highlighter-rouge">string</code>、<code class="highlighter-rouge">const char*</code>、 <code class="highlighter-rouge">char*</code> 、<code class="highlighter-rouge">char[]</code>相互转换</strong></p>
+
+<p><strong>一、转换表格</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">源格式-&gt;目标格式</th>
+      <th style="text-align: center">string</th>
+      <th style="text-align: center">char*</th>
+      <th style="text-align: center">const char*</th>
+      <th style="text-align: center">char[]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">string</td>
+      <td style="text-align: center">NULL</td>
+      <td style="text-align: center">直接赋值</td>
+      <td style="text-align: center">直接赋值</td>
+      <td style="text-align: center">直接赋值</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">char*</td>
+      <td style="text-align: center">strcpy</td>
+      <td style="text-align: center">NULL</td>
+      <td style="text-align: center">const_cast</td>
+      <td style="text-align: center">char*=char</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">const char*</td>
+      <td style="text-align: center">c_str()</td>
+      <td style="text-align: center">直接赋值</td>
+      <td style="text-align: center">NULL</td>
+      <td style="text-align: center">const char*=char;</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">char[]</td>
+      <td style="text-align: center">copy()</td>
+      <td style="text-align: center">strncpy_s()</td>
+      <td style="text-align: center">strncpy_s()</td>
+      <td style="text-align: center">NULL</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>二、总结方法：</strong></p>
+
+<ol>
+  <li>变成<code class="highlighter-rouge">string</code>,直接赋值。</li>
+  <li><code class="highlighter-rouge">char[]</code>变成别的，直接赋值。</li>
+  <li><code class="highlighter-rouge">char*</code>变<code class="highlighter-rouge">const char*</code>容易，<code class="highlighter-rouge">const char*</code>变<code class="highlighter-rouge">char*</code>麻烦。<code class="highlighter-rouge">&lt;const_cast&gt;&lt;char*&gt;(constchar*);</code></li>
+  <li><code class="highlighter-rouge">string</code>变<code class="highlighter-rouge">char*</code>要通过<code class="highlighter-rouge">const char*</code>中转。</li>
+  <li>变成<code class="highlighter-rouge">char[]</code>。<code class="highlighter-rouge">string</code>逐个赋值，<code class="highlighter-rouge">char* const char* strncpy_s()</code>。</li>
+</ol>
+
+<p><strong>三，代码示例</strong></p>
+
+<p>1、<code class="highlighter-rouge">string</code>转为其他类型</p>
+
+<p>①、<code class="highlighter-rouge">string</code>转<code class="highlighter-rouge">const char*</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span>     <span class="c1">//初始化string类型，并具体赋值</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>         <span class="c1">//初始化const char*类型，并赋值为空</span>
+    <span class="n">constc</span><span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span>                 <span class="c1">//string类型转const char*类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>        <span class="c1">//打印string类型数据 .c_str()</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">constc</span><span class="p">);</span>             <span class="c1">//打印const char*类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>②、<code class="highlighter-rouge">string</code>转<code class="highlighter-rouge">char*</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span>     <span class="c1">//初始化string类型，并具体赋值</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>                    <span class="c1">//初始化char*类型，并赋值为空</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>         <span class="c1">//初始化const char*类型，并赋值为空</span>
+    <span class="n">constc</span><span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span>                 <span class="c1">//string类型转const char*类型</span>
+    <span class="n">c</span><span class="o">=</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">constc</span><span class="p">);</span>        <span class="c1">//const char*类型转char*类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>        <span class="c1">//打印string类型数据 .c_str()</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">c</span><span class="p">);</span>                  <span class="c1">//打印char*类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>③、<code class="highlighter-rouge">string</code>转<code class="highlighter-rouge">char[]</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span>      <span class="c1">//初始化string类型，并具体赋值</span>
+    <span class="kt">char</span> <span class="n">arrc</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>                   <span class="c1">//初始化char[]类型，并赋值为空</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">length</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">//string类型转char[]类型</span>
+    <span class="p">{</span>
+        <span class="n">arrc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>         <span class="c1">//打印string类型数据 .c_str()</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">arrc</span><span class="p">);</span>                <span class="c1">//打印char[]类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>2、<code class="highlighter-rouge">const char*</code>转为其他类型</p>
+
+<p>①<code class="highlighter-rouge">const char*</code>转<code class="highlighter-rouge">string</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="s">"Hello World!"</span><span class="p">;</span>     <span class="c1">//初始化const char* 类型，并具体赋值</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>                        <span class="c1">//初始化string类型</span>
+    <span class="n">str</span><span class="o">=</span> <span class="n">constc</span><span class="p">;</span>                            <span class="c1">//const char*类型转string类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">constc</span><span class="p">);</span>                <span class="c1">//打印const char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>           <span class="c1">//打印string类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>②<code class="highlighter-rouge">const char* </code>转<code class="highlighter-rouge">char*</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="s">"Hello World!"</span><span class="p">;</span>     <span class="c1">//初始化const char* 类型，并具体赋值</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>                       <span class="c1">//初始化char*类型</span>
+    <span class="n">c</span><span class="o">=</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">constc</span><span class="p">);</span>           <span class="c1">//const char*类型转char*类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">constc</span><span class="p">);</span>                <span class="c1">//打印const char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>                     <span class="c1">//打印char*类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>③<code class="highlighter-rouge">const char*</code>转<code class="highlighter-rouge">char[]</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="s">"Hello World!"</span><span class="p">;</span>     <span class="c1">//初始化const char* 类型，并具体赋值</span>
+    <span class="kt">char</span> <span class="n">arrc</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>                   <span class="c1">//初始化char[]类型，并赋值为空</span>
+    <span class="n">strncpy_s</span><span class="p">(</span><span class="n">arrc</span><span class="p">,</span><span class="n">constc</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>              <span class="c1">//const char*类型转char[]类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">constc</span><span class="p">);</span>                <span class="c1">//打印const char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">arrc</span><span class="p">);</span>                  <span class="c1">//打印char[]类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>3、<code class="highlighter-rouge">char*</code>转为其他类型</p>
+
+<p>①<code class="highlighter-rouge">char*</code>转<code class="highlighter-rouge">string</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span>           <span class="c1">//初始化char* 类型，并具体赋值</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>                   <span class="c1">//初始化string类型</span>
+    <span class="n">str</span><span class="o">=</span> <span class="n">c</span><span class="p">;</span>                            <span class="c1">//char*类型转string类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>                <span class="c1">//打印char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>      <span class="c1">//打印string类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>②<code class="highlighter-rouge">char*</code> 转<code class="highlighter-rouge">const char*</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span>         <span class="c1">//初始化char* 类型，并具体赋值</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>     <span class="c1">//初始化const char* 类型，并具体赋值</span>
+    <span class="n">constc</span><span class="o">=</span> <span class="n">c</span><span class="p">;</span>                       <span class="c1">//char*类型转const char* 类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>              <span class="c1">//打印char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">constc</span><span class="p">);</span>         <span class="c1">//打印const char* 类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>③<code class="highlighter-rouge">char*</code>转<code class="highlighter-rouge">char[]</code></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span>         <span class="c1">//初始化char* 类型，并具体赋值</span>
+    <span class="kt">char</span> <span class="n">arrc</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>           <span class="c1">//初始化char[] 类型，并具体赋值</span>
+    <span class="n">strncpy_s</span><span class="p">(</span><span class="n">arrc</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="mi">20</span><span class="p">);</span>             <span class="c1">//char*类型转char[] 类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>              <span class="c1">//打印char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">arrc</span><span class="p">);</span>           <span class="c1">//打印char[]类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>4、<code class="highlighter-rouge">char[]</code>转为其他类型</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "stdafx.h"
+#include &lt;iostream&gt;
+</span><span class="kt">int</span> <span class="nf">_tmain</span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span> <span class="n">_TCHAR</span><span class="o">*</span> <span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">arrc</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span> <span class="o">=</span> <span class="s">"HelloWorld!"</span><span class="p">;</span><span class="c1">//初始化char[] 类型并具体赋值</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">;</span>                 <span class="c1">//初始化string</span>
+    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">constc</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>   <span class="c1">//初始化const char*</span>
+    <span class="kt">char</span><span class="o">*</span><span class="n">c</span> <span class="o">=</span> <span class="nb">nullptr</span><span class="p">;</span>                <span class="c1">//初始化char*</span>
+    <span class="n">str</span><span class="o">=</span> <span class="n">arrc</span><span class="p">;</span>                     <span class="c1">//char[]类型转string类型</span>
+    <span class="n">constc</span><span class="o">=</span> <span class="n">arrc</span><span class="p">;</span>             <span class="c1">//char[]类型转const char* 类型</span>
+    <span class="n">c</span><span class="o">=</span> <span class="n">arrc</span><span class="p">;</span>                        <span class="c1">//char[]类型转char*类型</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">arrc</span><span class="p">);</span>         <span class="c1">//打印char[]类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>  <span class="c1">//打印string类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">constc</span><span class="p">);</span>       <span class="c1">//打印const char* 类型数据</span>
+    <span class="n">printf_s</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>            <span class="c1">//打印char*类型数据</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="一vector">一、vector？</h3>
+
+<p>向量（Vector）是一个封装了动态大小数组的顺序容器（Sequence Container）。跟任意其它类型容器一样，它能够存放各种类型的对象。可以简单的认为，向量是一个能够存放任意类型的动态数组。</p>
+
+<hr />
+
+<h3 id="二容器特性">二、容器特性</h3>
+
+<p><strong>1.顺序序列</strong></p>
+
+<p>顺序容器中的元素按照严格的线性顺序排序。可以通过元素在序列中的位置访问对应的元素。</p>
+
+<p><strong>2.动态数组</strong></p>
+
+<p>支持对序列中的任意元素进行快速直接访问，甚至可以通过指针算述进行该操作。操供了在序列末尾相对快速地添加/删除元素的操作。</p>
+
+<p><strong>3.能够感知内存分配器的（Allocator-aware）</strong></p>
+
+<p>容器使用一个内存分配器对象来动态地处理它的存储需求。</p>
+
+<hr />
+
+<h3 id="三基本函数实现">三、基本函数实现</h3>
+
+<p><strong>1.构造函数</strong></p>
+
+<ul>
+  <li>vector():创建一个空vector</li>
+  <li>vector(int nSize):创建一个vector,元素个数为nSize</li>
+  <li>vector(int nSize,const t&amp; t):创建一个vector，元素个数为nSize,且值均为t</li>
+  <li>vector(const vector&amp;):复制构造函数</li>
+  <li>vector(begin,end):复制[begin,end)区间内另一个数组的元素到vector中</li>
+</ul>
+
+<p><strong>2.增加函数</strong></p>
+
+<ul>
+  <li>void push_back(const T&amp; x):向量尾部增加一个元素X</li>
+  <li>iterator insert(iterator it,const T&amp; x):向量中迭代器指向元素前增加一个元素x</li>
+  <li>iterator insert(iterator it,int n,const T&amp; x):向量中迭代器指向元素前增加n个相同的元素x</li>
+  <li>iterator insert(iterator it,const_iterator first,const_iterator last):向量中迭代器指向元素前插入另一个相同类型向量的[first,last)间的数据</li>
+</ul>
+
+<p><strong>3.删除函数</strong></p>
+
+<ul>
+  <li>iterator erase(iterator it):删除向量中迭代器指向元素</li>
+  <li>iterator erase(iterator first,iterator last):删除向量中[first,last)中元素</li>
+  <li>void pop_back():删除向量中最后一个元素</li>
+  <li>void clear():清空向量中所有元素</li>
+</ul>
+
+<p><strong>4.遍历函数</strong></p>
+
+<ul>
+  <li>reference at(int pos):返回pos位置元素的引用</li>
+  <li>reference front():返回首元素的引用</li>
+  <li>reference back():返回尾元素的引用</li>
+  <li>iterator begin():返回向量头指针，指向第一个元素</li>
+  <li>iterator end():返回向量尾指针，指向向量最后一个元素的下一个位置</li>
+  <li>reverse_iterator rbegin():反向迭代器，指向最后一个元素</li>
+  <li>reverse_iterator rend():反向迭代器，指向第一个元素之前的位置</li>
+</ul>
+
+<p><strong>5.判断函数</strong></p>
+
+<ul>
+  <li>bool empty() const:判断向量是否为空，若为空，则向量中无元素</li>
+</ul>
+
+<p><strong>6.大小函数</strong></p>
+
+<ul>
+  <li>int size() const:返回向量中元素的个数</li>
+  <li>int capacity() const:返回当前向量张红所能容纳的最大元素值</li>
+  <li>int max_size() const:返回最大可允许的vector元素数量值</li>
+</ul>
+
+<p><strong>7.其他函数</strong></p>
+
+<ul>
+  <li>void swap(vector&amp;):交换两个同类型向量的数据</li>
+  <li>void assign(int n,const T&amp; x):设置向量中第n个元素的值为x</li>
+  <li>void assign(const_iterator first,const_iterator last):向量中[first,last)中元素设置成当前向量元素</li>
+</ul>
+
+<p><strong>8.看着清楚</strong></p>
+
+<blockquote>
+  <p>1.push_back 在数组的最后添加一个数据</p>
+
+  <p>2.pop_back 去掉数组的最后一个数据</p>
+
+  <p>3.at 得到编号位置的数据</p>
+
+  <p>4.begin 得到数组头的指针</p>
+
+  <p>5.end 得到数组的最后一个单元+1的指针</p>
+
+  <p>6．front 得到数组头的引用</p>
+
+  <p>7.back 得到数组的最后一个单元的引用</p>
+
+  <p>8.max_size 得到vector最大可以是多大</p>
+
+  <p>9.capacity 当前vector分配的大小</p>
+
+  <p>10.size 当前使用数据的大小</p>
+
+  <p>11.resize 改变当前使用数据的大小，如果它比当前使用的大，者填充默认值</p>
+
+  <p>12.reserve 改变当前vecotr所分配空间的大小</p>
+
+  <p>13.erase 删除指针指向的数据项</p>
+
+  <p>14.clear 清空当前的vector</p>
+
+  <p>15.rbegin 将vector反转后的开始指针返回(其实就是原来的end-1)</p>
+
+  <p>16.rend 将vector反转构的结束指针返回(其实就是原来的begin-1)</p>
+
+  <p>17.empty 判断vector是否为空</p>
+
+  <p>18.swap 与另一个vector交换数据</p>
+</blockquote>
+
+<hr />
+
+<h3 id="四基本用法">四、基本用法</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt; vector&gt; 
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="五简单介绍">五、简单介绍</h3>
+
+<ol>
+  <li>Vector<类型>标识符</类型></li>
+  <li>Vector<类型>标识符(最大容量)</类型></li>
+  <li>Vector<类型>标识符(最大容量,初始所有值)</类型></li>
+  <li>Int i[5]={1,2,3,4,5} 
+Vector<类型>vi(I,i+2);//得到i索引值为3以后的值</类型></li>
+  <li>Vector&lt; vector&lt; int&gt; &gt;v; 二维向量//这里最外的&lt;&gt;要有空格。否则在比较旧的编译器下无法通过</li>
+</ol>
+
+<hr />
+
+<p><strong>实例</strong></p>
+
+<p><strong>1.pop_back()&amp;push_back(elem)实例在容器最后移除和插入数据</strong></p>
+
+<p><strong>实例</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;string.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">obj</span><span class="p">;</span><span class="c1">//创建一个向量存储容器 int</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="c1">// push_back(elem)在数组最后添加数据 </span>
+    <span class="p">{</span>
+        <span class="n">obj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="p">;</span>    
+    <span class="p">}</span>
+ 
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//去掉数组最后一个数据 </span>
+    <span class="p">{</span>
+        <span class="n">obj</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+    <span class="p">}</span>
+ 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+ 
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//size()容器中实际数据个数 </span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="p">;</span>
+    <span class="p">}</span>
+ 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>输出结果为：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span>
+
+<span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p><strong>2.clear()清除容器中所有数据</strong></p>
+
+<p><strong>实例</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;string.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">obj</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//push_back(elem)在数组最后添加数据 </span>
+    <span class="p">{</span>
+        <span class="n">obj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="p">;</span>
+    <span class="p">}</span>
+ 
+    <span class="n">obj</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="c1">//清除容器中所以数据</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+ 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>输出结果为：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0,1,2,3,4,5,6,7,8,9,
+</code></pre></div></div>
+
+<p><strong>3.排序</strong></p>
+
+<p><strong>实例</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;string.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">obj</span><span class="p">;</span>
+ 
+    <span class="n">obj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">obj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    <span class="n">obj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+ 
+    <span class="n">sort</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">obj</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="c1">//从小到大</span>
+ 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"从小到大:"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="p">;</span>  
+    <span class="p">}</span> 
+ 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+ 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"从大到小:"</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">reverse</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">obj</span><span class="p">.</span><span class="n">end</span><span class="p">());</span><span class="c1">//从大到小 </span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">","</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>输出结果为：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">从小到大</span><span class="o">:</span>
+<span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span>
+
+<span class="err">从大到小</span><span class="o">:</span>
+<span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span>
+</code></pre></div></div>
+
+<p>1.注意 sort 需要头文件 **#include <algorithm>**</algorithm></p>
+
+<p>2.如果想 sort 来降序，可重写 sort</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> 
+<span class="p">{</span> 
+    <span class="k">return</span> <span class="n">a</span><span class="o">&lt;</span> <span class="n">b</span><span class="p">;</span> <span class="c1">//升序排列，如果改为return a&gt;b，则为降序 </span>
+<span class="p">}</span> 
+<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">23</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">76</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">65</span><span class="p">},</span><span class="n">i</span><span class="p">;</span> 
+<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span> 
+<span class="n">sort</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="mi">20</span><span class="p">,</span><span class="n">compare</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><strong>4.访问（直接数组访问&amp;迭代器访问）</strong></p>
+
+<p><strong>实例</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;string.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//顺序访问</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="n">obj</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">obj</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>   
+    <span class="p">}</span> 
+ 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"直接利用数组："</span><span class="p">;</span> 
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//方法一 </span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="p">}</span>
+ 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span> 
+    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"利用迭代器："</span> <span class="p">;</span>
+    <span class="c1">//方法二，使用迭代器将容器中数据输出 </span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">it</span><span class="p">;</span><span class="c1">//声明一个迭代器，来访问vector容器，作用：遍历或者指向vector容器的元素 </span>
+    <span class="k">for</span><span class="p">(</span><span class="n">it</span><span class="o">=</span><span class="n">obj</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span><span class="n">it</span><span class="o">!=</span><span class="n">obj</span><span class="p">.</span><span class="n">end</span><span class="p">();</span><span class="n">it</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;*</span><span class="n">it</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>输出结果为：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">直接利用数组：</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span> 
+<span class="err">利用迭代器：</span><span class="mi">0</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span>
+</code></pre></div></div>
+
+<p><strong>5.二维数组两种定义方法（结果一样）</strong></p>
+
+<p><strong>方法一</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;string.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">6</span><span class="p">;</span> 
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">obj</span><span class="p">(</span><span class="n">N</span><span class="p">);</span> <span class="c1">//定义二维动态数组大小5行 </span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//动态二维数组为5行6列，值全为0 </span>
+    <span class="p">{</span> 
+        <span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">resize</span><span class="p">(</span><span class="n">M</span><span class="p">);</span> 
+    <span class="p">}</span> 
+ 
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//输出二维动态数组 </span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>方法二</strong></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;string.h&gt;
+#include &lt;vector&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">N</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="mi">6</span><span class="p">;</span> 
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">obj</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M</span><span class="p">));</span> <span class="c1">//定义二维动态数组5行6列 </span>
+ 
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">obj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="c1">//输出二维动态数组 </span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">();</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">obj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>输出结果为：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> 
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> 
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> 
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> 
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> 
+</code></pre></div></div>
+
+<h3 id="迭代器">迭代器</h3>
+
+<p>是一种检查容器内元素并遍历元素的数据类型。可以替代下标访问vector对象的元素。</p>
+
+<p>每种容器类型都定义了自己的迭代器类型，如 <code class="highlighter-rouge">vector</code>：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">iter</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>这符语句定义了一个名为 iter 的变量，它的数据类型是 vector<int> 定义的 iterator 类型。每个标准库容器类型都定义了一个名为 iterator 的成员，这里的 iterator 与迭代器实际类型的含义相同。</int></p>
+
+<p><strong>begin 和 end 操作</strong></p>
+
+<p>每种容器都定义了一对命名为 begin 和 end 的函数，用于返回迭代器。如果容器中有元素的话，由 begin 返回的迭代器指向第一个元素：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>上述语句把 iter 初始化为由名为 vector 操作返回的值。假设 vector 不空，初始化后，iter 即指该元素为 ivec[0]。由 end 操作返回的迭代器指向 vector 的“末端元素的下一个”。表明它指向了一个不存在的元素。如果 vector 为空，begin 返回的迭代器与 end 返回的迭代器相同。由 end 操作返回的迭代器并不指向 vector 中任何实际的元素，相反，它只是起一个哨兵（sentinel）的作用，表示我们已处理完 vector 中所有元素。
+【备注：不用担心begin和end在循环中的条件判断。大胆使用吧！】<br />
+<strong>vector 迭代器的自增和解引用运算</strong><br />
+迭代器类型可使用解引用操作符（dereference operator）（*）来访问迭代器所指向的元素：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span><span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>解引用操作符返回迭代器当前所指向的元素。假设 iter 指向 vector 对象 ivec 的第一元素，那么 *iter 和 ivec[0] 就是指向同一个元素。上面这个语句的效果就是把这个元素的值赋为 0。
+迭代器使用自增操作符向前移动迭代器指向容器中下一个元素。从逻辑上说，迭代器的自增操作和 int 型对象的自增操作类似。对 int 对象来说，操作结果就是把 int 型值“加 1”，而对迭代器对象则是把容器中的迭代器“向前移动一个位置”。因此，如果 iter 指向第一个元素，则 ++iter 指向第二个元素。
+由于 end 操作返回的迭代器不指向任何元素，因此不能对它进行解引用或自增操作。<br />
+<strong>迭代器的其他操作</strong><br />
+另一对可执行于迭代器的操作就是比较：用 == 或 != 操作符来比较两个迭代器，如果两个迭代器对象指向同一个元素，则它们相等，否则就不相等。<br />
+<strong>迭代器应用的程序示例</strong><br />
+<strong>1、使用迭代器和下标改变vector的内容</strong><br />
+这个很简单，请看代码。</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">print_int_vector</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ivec</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">for</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">size_type</span> <span class="n">ix</span> <span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">ix</span> <span class="o">!=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">ix</span><span class="p">,</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">ivec</span><span class="p">[</span><span class="n">ix</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">" "</span><span class="p">;</span> <span class="c1">//加空格！</span>
+	<span class="p">}</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ivec</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">68</span><span class="p">);</span> <span class="c1">// empty vector</span>
+	<span class="n">print_int_vector</span><span class="p">(</span><span class="n">ivec</span><span class="p">);</span>
+	<span class="c1">// reset all the elements in ivec to 0</span>
+	<span class="cm">/*
+        // 使用下标
+	for (std::vector&lt;int&gt;::size_type ix = 0; ix != ivec.size(); ++ix)
+	{
+	    ivec[ix] = 0;
+	}
+	*/</span>
+	<span class="c1">// equivalent loop using iterators to reset all the elements in ivec to 0</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">iter</span><span class="p">)</span>
+		<span class="o">*</span><span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// set element to which iter refers to 0</span>
+	<span class="n">print_int_vector</span><span class="p">(</span><span class="n">ivec</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>2、tuple功能的实现【不可变性】</strong></p>
+
+<p>const_iterator类型只能用于读取容器内元素，但不能改变其值。
+当我们对普通 iterator 类型解引用时，得到对某个元素的非 const。而如果我们对 const_iterator 类型解引用时，则可以得到一个指向 const 对象的引用），如同任何常量一样，该对象不能进行重写。
+如果使用const_itreator进行重写，编译时会报错！
+使用 const_iterator 类型时，我们可以得到一个迭代器，它自身的值可以改变，但不能用来改变其所指向的元素的值。可以对迭代器进行自增以及使用解引用操作符来读取值，但不能对该元素赋值。
+【注意：不要把 const_iterator 对象与 const 的 iterator 对象混淆起来。声明一个 const 迭代器时，必须初始化迭代器。一旦被初始化后，就不能改变它的值。】</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">nums</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> <span class="c1">// nums is nonconst</span>
+<span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">cit</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+<span class="o">*</span><span class="n">cit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// ok: cit can change its underlying element</span>
+<span class="o">++</span><span class="n">cit</span><span class="p">;</span> <span class="c1">// error: can't change the value of cit</span>
+</code></pre></div></div>
+
+<p>【注意：const_iterator 对象可以用于 const vector 或非 const vector，因为不能改写元素值。const 迭代器这种类型几乎没什么用处：一旦它被初始化后，只能用它来改写其指向的元素，但不能使它指向任何其他元素。】
+tuple不可变的实现需要使用const声明！const vector<int> nums(10, 9);</int></p>
+
+<p><strong>总结</strong></p>
+
+<p>1、const_iterator需要注意：这个vector本身还是可变的，只不过对const_iterator类型解引用的对象不可变。</p>
+
+<p>2、const迭代器也就是只能指向其所指向的元素，不能通过++等操作去指向其他元素。但是，所指向这个元素可以改变。</p>
+
+<p>3、需要定义真正tuple，那就用const vector<int> nums(10, 9);来定义！此时，必须使用const_iterator 来获取每个元素的值。</int></p>
+
+<p><strong>迭代器的算术操作</strong></p>
+
+<p>1、可以对迭代器对象加上或减去一个整形值。这样做将产生一个新的迭代器，其位置在 iter 所指元素之前（加）或之后（减） n 个元素的位置。加或减之后的结果必须指向 iter 所指 vector 中的某个元素，或者是 vector 末端的后一个元素。加上或减去的值的类型应该是 vector 的 size_type 或 difference_type 类型，例子：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ivec</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">68</span><span class="p">);</span> 
+	<span class="n">print_int_vector</span><span class="p">(</span><span class="n">ivec</span><span class="p">);</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">iter</span> <span class="o">!=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">iter</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="o">*</span><span class="n">iter</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// set element to which iter refers to i</span>
+	<span class="n">print_int_vector</span><span class="p">(</span><span class="n">ivec</span><span class="p">);</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">ivec</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+    <span class="n">iter</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="o">&lt;&lt;*</span><span class="n">iter</span><span class="p">;</span>
+ 
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>本例子中ivec有10个元素，iter+=j，j在10以内都不会有错（0~9），大于等于10则会出现溢出问题，编译器，运行中间都不会报错！可以加当然可以减。</p>
+
+<p>2、iter1 - iter2：
+该表达式用来计算两个迭代器对象的距离，该距离是名为 difference_type 的 signed 类型 size_type 的值，这里的 difference_type 是 signed 类型，因为减法运算可能产生负数的结果。该类型可以保证足够大以存储任何两个迭代器对象间的距离。iter1 与 iter2 两者必须都指向同一 vector 中的元素，或者指向 vector 末端之后的下一个元素。</p>
+
+<p>3、可以用迭代器算术操作来移动迭代器直接指向某个元素，例如，下面语句直接定位于 vector 中间元素：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">vi</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">vi</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>上述代码用来初始化 mid 使其指向 vi 中最靠近正中间的元素。这种直接计算迭代器的方法，与用迭代器逐个元素自增操作到达中间元素的方法是等价的，但前者的效率要高得多。</p>
+
+<p>4、任何改变 vector 长度的操作都会使已存在的迭代器失效。例如，在调用 push_back 之后，就不能再信赖指向 vector 的迭代器的值了。
+请看例子：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span><span class="n">iter</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// set element to which iter refers to i</span>
+<span class="n">ivec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>加上这句代码没问题，正确运行，但是，我们试图在for循环里面执行，即：</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="o">*</span><span class="n">iter</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// set element to which iter refers to i</span>
+    <span class="n">ivec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>则会莫名其妙退出！</p>
+
+<h3 id="reference">Reference</h3>
+
+<ul>
+  <li><a href="https://www.cnblogs.com/coveted/archive/2011/12/28/2304509.html">字符串字面值、C风格字符串、C++风格字符串</a></li>
+  <li><a href="https://blog.csdn.net/ksws0292756/article/details/79432329">C++ 字符串与字符数组 详解</a></li>
+  <li><a href="http://www.runoob.com/w3cnote/cpp-vector-container-analysis.html">C++ vector 容器浅析</a></li>
+  <li><a href="https://blog.csdn.net/zhanh1218/article/details/33340959">C/C++迭代器使用详解</a></li>
+</ul>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/11/20/C++-Review-Chapter-1-+-2/" data-toggle="tooltip" data-placement="top" title="C++ Review">
+                        Previous<br>
+                        <span>C++ Review</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Jekyll" title="Jekyll" rel="2">
+                                    Jekyll
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Git" title="Git" rel="3">
+                                    Git
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Python" title="Python" rel="2">
+                                    Python
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#C++" title="C++" rel="2">
+                                    C++
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/lance-lh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Lance 2018
+                    <br>
+                    Theme on <a href="https://github.com/lance-lh/lance-lh.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lance-lh&repo=lance-lh.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
