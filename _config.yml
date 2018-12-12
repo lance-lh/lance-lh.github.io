@@ -41,3 +41,9 @@ kramdown:
 # Featured Tags
 featured-tags: true                     # use main page label
 featured-condition-size: 1              # appear in main page if ...
+
+
+leancloud:
+  enable: true
+  app_id: JSrDARlzAk8MmozvqwNbsm0f-gzGzoHsz
+  app_key: Byfqq6nUuPXkLj4dOCUwszxu

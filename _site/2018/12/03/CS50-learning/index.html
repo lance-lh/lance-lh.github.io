@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Stay hungry,Stay foolish">
+    <meta name="keywords"  content="">
+    <meta name="theme-color" content="">
+    
+    <title>CS50 learning - lance-lh</title>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/12/03/CS50-learning/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("JSrDARlzAk8MmozvqwNbsm0f-gzGzoHsz", "Byfqq6nUuPXkLj4dOCUwszxu");</script>
+<script>
+    function showHitCount(Counter) {
+        var query = new AV.Query(Counter);
+        var entries = [];
+        var $visitors = $(".leancloud_visitors");
+        $visitors.each(function () {
+            entries.push( $(this).attr("id").trim() );
+        });
+        query.containedIn('url', entries);
+        query.find()
+                .done(function (results) {
+                    console.log("results",results);
+                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+                    if (results.length === 0) {
+                        $visitors.find(COUNT_CONTAINER_REF).text(0);
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var item = results[i];
+                        var url = item.get('url');
+                        var hits = item.get('hits');
+                        var element = document.getElementById(url);
+                        $(element).find(COUNT_CONTAINER_REF).text(hits);
+                    }
+                    for(var i = 0; i < entries.length; i++) {
+                        var url = entries[i];
+                        var element = document.getElementById(url);
+                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                        if( countSpan.text() == '') {
+                            countSpan.text(0);
+                        }
+                    }
+                })
+                .fail(function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                });
+    }
+    function addCount(Counter) {
+        var $visitors = $(".leancloud_visitors");
+        var url = $visitors.attr('id').trim();
+        var title = $visitors.attr('data-flag-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find({
+            success: function(results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save(null, {
+                        success: function(counter) {
+                            var $element = $(document.getElementById(url));
+                            $element.find('.leancloud-visitors-count').text(counter.get('hits'));
+                        },
+                        error: function(counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    });
+                } else {
+                    var newcounter = new Counter();
+                    /* Set ACL */
+                    var acl = new AV.ACL();
+                    acl.setPublicReadAccess(true);
+                    acl.setPublicWriteAccess(true);
+                    newcounter.setACL(acl);
+                    /* End Set ACL */
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save(null, {
+                        success: function(newcounter) {
+                            var $element = $(document.getElementById(url));
+                            $element.find('.leancloud-visitors-count').text(newcounter.get('hits'));
+                        },
+                        error: function(newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    });
+                }
+            },
+            error: function(error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        });
+    }
+    $(function() {
+        var Counter = AV.Object.extend("Counter");
+        if ($('.leancloud_visitors').length == 1) {
+            // in post.html, so add 1 to hit counts
+            addCount(Counter);
+        } else if ($('.post-link').length > 1){
+            // in index.html, there are many 'leancloud_visitors' and 'post-link', so just show hit counts.
+            showHitCount(Counter);
+        }
+    });
+</script>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Lance</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Python" title="Python">Python</a>
+                        
+                        <a class="tag" href="/tags/#C" title="C">C</a>
+                        
+                        <a class="tag" href="/tags/#HTML" title="HTML">HTML</a>
+                        
+                        <a class="tag" href="/tags/#CSS" title="CSS">CSS</a>
+                        
+                        <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                    </div>
+                    <h1>CS50 learning</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Lance on December 3, 2018</span>
+                    
+                        <span id="/2018/12/03/CS50-learning/" class="leancloud_visitors" data-flag-title="CS50 learning">
+                        <span class="post-meta-divider">|</span>
+                        <span class="post-meta-item-text"> View:  </span>
+                        <span class="leancloud-visitors-count"></span>
+                        </span>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="introduction">Introduction</h2>
+<p>This is a simple introduction about computer science.
+You can learn it on YouTube:</p>
+
+<blockquote>
+  <p>https://www.youtube.com/results?search_query=cs50+2018</p>
+</blockquote>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 0 - Computational Thinking, Scratch</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 1 - C</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 2 - Arrays</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 3 - Memory</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 4 - Data Structures</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 5 - HTTP, HTML, CSS</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />CS50 2018 - Lecture 6 - Python</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />CS50 2018 - Lecture 7 - Web Programming</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />CS50 2018 - Lecture 8 - SQL</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />CS50 2018 - Lecture 9 - Life after 50</li>
+</ul>
+
+<p>And here is some code practices downloaded from my personal online CS50 IDE. You can register EDX and use it for free. They also provide a offline IDE edition for coders.</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lance-lh/learning-cs50.git
+</code></pre></div></div>
+<p><img src="https://i.loli.net/2018/12/11/5c0fa5f32610f.png" /></p>
+
+<h3 id="python--name-attribute">python  name attribute</h3>
+<p>This is a typical example from <em>stackoverflow</em>.</p>
+
+<blockquote>
+  <p>When the Python interpreter reads a source file, it executes all of the code found in it.</p>
+
+  <p>Before executing the code, it will define a few special variables. For example, if the Python interpreter is running that module (the source file) as the main program, it sets the special <code class="highlighter-rouge">__name__</code> variable to have a value <code class="highlighter-rouge">"__main__"</code>. If this file is being imported from another module, <code class="highlighter-rouge">__name__</code> will be set to the module’s name.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">foo</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">functionA</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Function A"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">functionB</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Function B"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">functionA</span><span class="p">()</span>
+    <span class="n">functionB</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Assume above python file called <code class="highlighter-rouge">test.py</code>,
+we run it by <code class="highlighter-rouge">python test.py</code> and it will output the following:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Function</span> <span class="n">A</span> 
+<span class="n">Function</span> <span class="n">B</span>
+<span class="mi">1</span>
+</code></pre></div></div>
+<p>And here is a python file called <code class="highlighter-rouge">call_test.py</code> and has the following content:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">test</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+</code></pre></div></div>
+<p>run <code class="highlighter-rouge">python call_test.py</code> , it will get the following result:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">__main__</span>
+<span class="n">test</span>
+</code></pre></div></div>
+<p>As you can see now if statement in <code class="highlighter-rouge">test</code> fails to execute because the value of <code class="highlighter-rouge">__name__</code> is set to <code class="highlighter-rouge">test</code>.</p>
+
+<h3 id="python-argv">python argv</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="n">argv</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">argv</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hello, "</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hello, world"</span><span class="p">)</span>  <span class="c1"># the case happens when python argv0.py or python argv.py plus plus plus...
+</span>                            <span class="c1"># plus plus separated by space
+</span>
+<span class="s">'''
+no count    0         1     2   ...
+python  argv0.py    lance  this
+'''</span>
+</code></pre></div></div>
+
+<h3 id="python-print-format">python print format</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"#"</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">()</span>
+</code></pre></div></div>
+<p>another  example can be seen below</p>
+<h3 id="float-point-imprecision">float-point imprecision</h3>
+<blockquote>
+  <p>if you want to have an infinite amount of precision all the way out,
+you need an infinite amount of memory.
+And no Mac or PC or phone has an infinite amount of memory.
+And so imprecision was the analog in the floating point world
+to overflow, recall, where if you only have a finite number of bits
+you can do really well up to a point.
+But eventually, the computer’s got to estimate that value for you
+because you can’t represent an infinite number of values.
+For precision need, you need to import sth that allows you to use as much as memory
+as you want more than just the default amount of memory.</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">cs50</span> <span class="kn">import</span> <span class="n">get_float</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="s">"x: "</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">get_float</span><span class="p">(</span><span class="s">"y: "</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"x / y = {z:.50f}"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="struct">struct</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">cs50</span> <span class="kn">import</span> <span class="n">get_string</span>
+
+<span class="n">students</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">get_string</span><span class="p">(</span><span class="s">"Name: "</span><span class="p">)</span>
+    <span class="n">dorm</span> <span class="o">=</span> <span class="n">get_string</span><span class="p">(</span><span class="s">"Dorm: "</span><span class="p">)</span>
+
+    <span class="c1"># key:value
+</span>    <span class="n">student</span> <span class="o">=</span> <span class="p">{</span><span class="s">"name"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="s">"dorm"</span><span class="p">:</span> <span class="n">dorm</span><span class="p">}</span>
+
+    <span class="n">students</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">student</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">students</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"{student['name']} is in dorm {student['dorm']}"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="python-simple-swap">python simple swap</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"x is {x}, y is {y}"</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">"x is {x}, y is {y}"</span><span class="p">)</span>
+</code></pre></div></div>
+<h3 id="c-swap">C swap</h3>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+</span>
+<span class="kt">void</span> <span class="n">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y</span><span class="p">);</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"a is %i, b is %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"a is %i, b is %i</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">swap</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="o">*</span><span class="n">x</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="fontsize-adjust">fontsize adjust</h3>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>
+            size
+        <span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+            haha, this is a simple practice for javascript.
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;select&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"xx-large"</span><span class="nt">&gt;</span>xx-large<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"x-large"</span><span class="nt">&gt;</span>x-large<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"large"</span><span class="nt">&gt;</span>large<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">selected</span> <span class="na">value=</span><span class="s">"initial"</span><span class="nt">&gt;</span>initial<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"small"</span><span class="nt">&gt;</span>small<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"x-small"</span><span class="nt">&gt;</span>x-small<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"xx-small"</span><span class="nt">&gt;</span>xx-small<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;/select&gt;</span>
+        <span class="nt">&lt;script&gt;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">onchange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"body"</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+            <span class="p">};</span>
+        <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<h3 id="c-struct">C struct</h3>
+<p><code class="highlighter-rouge">struct.h</code></p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// represent a student</span>
+<span class="k">typedef</span> <span class="k">struct</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span> <span class="c1">// string name</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">dorm</span><span class="p">;</span> <span class="c1">// string dorm</span>
+<span class="p">}</span>
+<span class="n">student</span><span class="p">;</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">struct.c</code>, and write the results to <code class="highlighter-rouge">csv</code>.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;cs50.h&gt;
+</span>
+<span class="cp">#include "struct.h"
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">enrollment</span> <span class="o">=</span> <span class="n">get_int</span><span class="p">(</span><span class="s">"enrollment: "</span><span class="p">);</span>
+    <span class="n">student</span> <span class="n">students</span><span class="p">[</span><span class="n">enrollment</span><span class="p">];</span><span class="n">s</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">enrollment</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">students</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span> <span class="o">=</span> <span class="n">get_string</span><span class="p">(</span><span class="s">"name: "</span><span class="p">);</span>
+        <span class="n">students</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">dorm</span> <span class="o">=</span> <span class="n">get_string</span><span class="p">(</span><span class="s">"dorm: "</span><span class="p">);</span>
+        
+    <span class="p">}</span>
+
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">"students.csv"</span><span class="p">,</span><span class="s">"w"</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">enrollment</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s">"%s,%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">students</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span><span class="p">,</span> <span class="n">students</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">dorm</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="c-linked-list">C linked list</h3>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;cs50.h&gt;
+#include&lt;stdio.h&gt;
+</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">node</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// Memory for numbers</span>
+    <span class="n">node</span> <span class="o">*</span><span class="n">numbers</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="c1">// Prompt for numbers (until EOF)</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Prompt for number</span>
+        <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">get_int</span><span class="p">(</span><span class="s">"Number: "</span><span class="p">);</span>
+
+        <span class="c1">// Check for EOF</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">number</span> <span class="o">==</span> <span class="n">INT_MAX</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Allocate space for number</span>
+        <span class="n">node</span> <span class="o">*</span><span class="n">n</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">node</span><span class="p">));</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">n</span><span class="p">)</span> <span class="c1">//if PC is out of memory, then malloc fails</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Add number to list</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span><span class="p">;</span>  <span class="c1">// (*n).number, n is a pointer</span>
+        <span class="n">n</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="c1">// error check, if(numbers!=NULL)</span>
+        <span class="p">{</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">node</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">;</span> <span class="n">ptr</span><span class="o">!=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="n">ptr</span> <span class="o">=</span> <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">ptr</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="c1">// if(!ptr-&gt;next), update ptr = ptr-&gt;next</span>
+                <span class="p">{</span>
+                    <span class="n">ptr</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">numbers</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h3 id="malloc-and-free">malloc and free</h3>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;  // the library contains malloc()
+</span>
+<span class="kt">void</span> <span class="n">f</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> <span class="c1">// declaration</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">f</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">f</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"You inputted %i.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">x</span><span class="p">[</span><span class="mi">9</span><span class="p">]);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="summary-of-searching-and-sorting">summary of searching and sorting</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Algorithms</th>
+      <th style="text-align: center">Conception</th>
+      <th style="text-align: center">$O$</th>
+      <th style="text-align: center">$\Omega$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><em>Linear search</em></td>
+      <td style="text-align: center">left to right search</td>
+      <td style="text-align: center">$n$</td>
+      <td style="text-align: center">$1$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>Binary search</em></td>
+      <td style="text-align: center">sorted array, half</td>
+      <td style="text-align: center">$\log n$</td>
+      <td style="text-align: center">$1$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>Bubble sort</em></td>
+      <td style="text-align: center">bubble swap adjacent pairs</td>
+      <td style="text-align: center">$n^2$</td>
+      <td style="text-align: center">$n$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>Selection sort</em></td>
+      <td style="text-align: center">find the smallest one, place change</td>
+      <td style="text-align: center">$n^2$</td>
+      <td style="text-align: center">$n^2$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>Insertion sort</em></td>
+      <td style="text-align: center">proceed the array from left to right, shift and insert</td>
+      <td style="text-align: center">$n^2$</td>
+      <td style="text-align: center">$n$</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"><em>Merge sort</em></td>
+      <td style="text-align: center">split and merge</td>
+      <td style="text-align: center">$n log n$</td>
+      <td style="text-align: center">$n log n$</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="reference">Reference</h2>
+<ul>
+  <li><a href="https://stackoverflow.com/questions/419163/what-does-if-name-main-do">What does if <strong>name</strong> == “<strong>main</strong>”: do?</a></li>
+  <li><a href="https://thepythonguru.com/what-is-if-__name__-__main__/">What is if <strong>name</strong> == “<strong>main</strong>” ??</a></li>
+  <li><a href="https://cs50.harvard.edu/2018/fall/">cs50</a></li>
+  <li><a href="https://stackoverflow.com/questions/26275645/how-to-support-latex-in-github-pages">How to support latex in github-pages?</a></li>
+</ul>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/11/21/C++-Review-Chapter-3/" data-toggle="tooltip" data-placement="top" title="C++ Review">
+                        Previous<br>
+                        <span>C++ Review</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Jekyll" title="Jekyll" rel="2">
+                                    Jekyll
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Git" title="Git" rel="3">
+                                    Git
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Python" title="Python" rel="3">
+                                    Python
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#C++" title="C++" rel="2">
+                                    C++
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/lance-lh">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Lance 2018
+                    <br>
+                    Theme on <a href="https://github.com/lance-lh/lance-lh.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=lance-lh&repo=lance-lh.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -12,6 +12,16 @@
     
     <title>lance-lh</title>
 
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        inlineMath: [['$','$']]
+      }
+    });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
 
@@ -56,6 +66,108 @@
     <!-- ga & ba script hoook -->
     <script></script>
 </head>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("JSrDARlzAk8MmozvqwNbsm0f-gzGzoHsz", "Byfqq6nUuPXkLj4dOCUwszxu");</script>
+<script>
+    function showHitCount(Counter) {
+        var query = new AV.Query(Counter);
+        var entries = [];
+        var $visitors = $(".leancloud_visitors");
+        $visitors.each(function () {
+            entries.push( $(this).attr("id").trim() );
+        });
+        query.containedIn('url', entries);
+        query.find()
+                .done(function (results) {
+                    console.log("results",results);
+                    var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+                    if (results.length === 0) {
+                        $visitors.find(COUNT_CONTAINER_REF).text(0);
+                        return;
+                    }
+                    for (var i = 0; i < results.length; i++) {
+                        var item = results[i];
+                        var url = item.get('url');
+                        var hits = item.get('hits');
+                        var element = document.getElementById(url);
+                        $(element).find(COUNT_CONTAINER_REF).text(hits);
+                    }
+                    for(var i = 0; i < entries.length; i++) {
+                        var url = entries[i];
+                        var element = document.getElementById(url);
+                        var countSpan = $(element).find(COUNT_CONTAINER_REF);
+                        if( countSpan.text() == '') {
+                            countSpan.text(0);
+                        }
+                    }
+                })
+                .fail(function (object, error) {
+                    console.log("Error: " + error.code + " " + error.message);
+                });
+    }
+    function addCount(Counter) {
+        var $visitors = $(".leancloud_visitors");
+        var url = $visitors.attr('id').trim();
+        var title = $visitors.attr('data-flag-title').trim();
+        var query = new AV.Query(Counter);
+        query.equalTo("url", url);
+        query.find({
+            success: function(results) {
+                if (results.length > 0) {
+                    var counter = results[0];
+                    counter.fetchWhenSave(true);
+                    counter.increment("hits");
+                    counter.save(null, {
+                        success: function(counter) {
+                            var $element = $(document.getElementById(url));
+                            $element.find('.leancloud-visitors-count').text(counter.get('hits'));
+                        },
+                        error: function(counter, error) {
+                            console.log('Failed to save Visitor num, with error message: ' + error.message);
+                        }
+                    });
+                } else {
+                    var newcounter = new Counter();
+                    /* Set ACL */
+                    var acl = new AV.ACL();
+                    acl.setPublicReadAccess(true);
+                    acl.setPublicWriteAccess(true);
+                    newcounter.setACL(acl);
+                    /* End Set ACL */
+                    newcounter.set("title", title);
+                    newcounter.set("url", url);
+                    newcounter.set("hits", 1);
+                    newcounter.save(null, {
+                        success: function(newcounter) {
+                            var $element = $(document.getElementById(url));
+                            $element.find('.leancloud-visitors-count').text(newcounter.get('hits'));
+                        },
+                        error: function(newcounter, error) {
+                            console.log('Failed to create');
+                        }
+                    });
+                }
+            },
+            error: function(error) {
+                console.log('Error:' + error.code + " " + error.message);
+            }
+        });
+    }
+    $(function() {
+        var Counter = AV.Object.extend("Counter");
+        if ($('.leancloud_visitors').length == 1) {
+            // in post.html, so add 1 to hit counts
+            addCount(Counter);
+        } else if ($('.post-link').length > 1){
+            // in index.html, there are many 'leancloud_visitors' and 'post-link', so just show hit counts.
+            showHitCount(Counter);
+        }
+    });
+</script>
 
 
 <!-- hack iOS CSS :active style -->
@@ -182,6 +294,31 @@
                 postlist-container
             ">
     			
+<div class="post-preview">
+    <a href="/2018/12/03/CS50-learning/">
+        <h2 class="post-title">
+            CS50 learning
+        </h2>
+        
+        <div class="post-content-preview">
+            Introduction
+This is a simple introduction about computer science.
+You can learn it on YouTube:
+
+
+  https://www.youtube.com/results?search_query=cs50+2018
+
+
+
+  CS50 2018 - Lecture 0 - Computational...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Lance on December 3, 2018
+    </p>
+</div>
+<hr>
+
 <div class="post-preview">
     <a href="/2018/11/21/C++-Review-Chapter-3/">
         <h2 class="post-title">
@@ -431,7 +568,7 @@ This is a simple tutorial for deploying Jekyll and Github Pages on Ubuntu.
                             
                         
                             
-                                <a href="/tags/#Python" title="Python" rel="2">
+                                <a href="/tags/#Python" title="Python" rel="3">
                                     Python
                                 </a>
                             
@@ -442,6 +579,14 @@ This is a simple tutorial for deploying Jekyll and Github Pages on Ubuntu.
                                 <a href="/tags/#C++" title="C++" rel="2">
                                     C++
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                     </div>
