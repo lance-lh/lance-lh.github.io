@@ -5,9 +5,73 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 12 Dec 2018 15:28:49 +0800</pubDate>
-    <lastBuildDate>Wed, 12 Dec 2018 15:28:49 +0800</lastBuildDate>
+    <pubDate>Sat, 22 Dec 2018 17:03:40 +0800</pubDate>
+    <lastBuildDate>Sat, 22 Dec 2018 17:03:40 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Mardown</title>
+        <description>&lt;h2 id=&quot;contents&quot;&gt;Contents&lt;/h2&gt;
+&lt;h3 id=&quot;github-flavored-markdown-anchor&quot;&gt;Github Flavored Markdown Anchor&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;##Title
+###Place 1
+Hello, this is some text to fill in this, [here](#place-2), is a link to the second place.
+
+###Place 2
+
+Place one has the fun times of linking here, but I can also link back [here](#place-1).
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+
+  &lt;p&gt;&lt;strong&gt;Summary of conversion rules:&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;punctuation marks will be dropped&lt;/li&gt;
+    &lt;li&gt;leading white spaces will be dropped&lt;/li&gt;
+    &lt;li&gt;upper case will be converted to lower&lt;/li&gt;
+    &lt;li&gt;spaces between letters will be converted to &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;A good example document with plenty links and formatting is &lt;a href=&quot;https://github.com/livingsocial/api-design/blob/master/README.md&quot;&gt;LivingSocial API Design Guide&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Also, from my standpoint, anchor is really helpful when you want to create an index of one long  long article. All you need to do is to normally use &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt; tag to arrange your header, and then follow the format &lt;code class=&quot;highlighter-rouge&quot;&gt;[name](#header-name)&lt;/code&gt; mentioned above.&lt;br /&gt;
+​        With &lt;em&gt;Typora&lt;/em&gt;, you can use &lt;code class=&quot;highlighter-rouge&quot;&gt;[TOC]&lt;/code&gt; or side bar to preview your document structure since Github does not support this feature.&lt;/p&gt;
+
+&lt;h3 id=&quot;markdown-with-html&quot;&gt;Markdown with HTML&lt;/h3&gt;
+&lt;p&gt;When you create a Markdown document, you are willing to share with others by &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt; it to Github pages. In this case, it is a browser environment for readers. Some &lt;code class=&quot;highlighter-rouge&quot;&gt;html&lt;/code&gt; tag may help you manage your structure as follows:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;p&amp;gt;paragraph&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;html details tag&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&amp;lt;details&amp;gt;&lt;/p&gt;
+    &lt;p&gt;&amp;lt;summary&amp;gt;contents&amp;lt;/summary&amp;gt;&lt;/p&gt;
+    &lt;p&gt;&amp;lt;/details&amp;gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;font&amp;gt;font_setting&amp;lt;/font&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;a id=&quot;create_anchor&quot;&amp;gt;&amp;lt;/a&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;diff&quot;&gt;diff&lt;/h3&gt;
+&lt;p&gt;Triple quotes with &lt;code class=&quot;highlighter-rouge&quot;&gt;diff&lt;/code&gt; keyword to indicate update and deleted content.&lt;/p&gt;
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gi&quot;&gt;+ new contents
+&lt;/span&gt;&lt;span class=&quot;gd&quot;&gt;- deleted contents
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/27981247/github-markdown-same-page-link&quot;&gt;Github Markdown Same Page Link&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 21 Dec 2018 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2018/12/21/Markdown/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018/12/21/Markdown/</guid>
+        
+        <category>Markdown</category>
+        
+        
+      </item>
     
       <item>
         <title>CS50 learning</title>
@@ -2312,6 +2376,9 @@ then add images to Markdown by using URL address.&lt;/p&gt;
       <item>
         <title>Commonly Used Git Commands</title>
         <description>&lt;h2 id=&quot;content&quot;&gt;Content&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2018/12/22/5c1de5e71e490.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;enter-the-local-directory-first&quot;&gt;Enter the local directory first&lt;/h3&gt;
 &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;directory
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -2381,6 +2448,7 @@ git reset &lt;span class=&quot;nt&quot;&gt;--hard&lt;/span&gt; origin/master &lt
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000&quot;&gt;Git教程&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf&quot;&gt;Git Cheat Sheet&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html&quot;&gt;常用 Git 命令清单&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Mon, 12 Nov 2018 00:00:00 +0800</pubDate>
