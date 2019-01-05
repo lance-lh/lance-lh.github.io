@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2019/01/04/Play-with-Data-Structure-Chapter-1/">
+    <link rel="canonical" href="http://localhost:4000/2019/01/05/Play-with-Data-Structure-Chapter-3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -291,11 +291,11 @@
                     <h1>大话数据结构</h1>
                     
                     
-                    <h2 class="subheading">Chapter 1</h2>
+                    <h2 class="subheading">Chapter 3</h2>
                     
-                    <span class="meta">Posted by Lance on January 4, 2019</span>
+                    <span class="meta">Posted by Lance on January 5, 2019</span>
                     
-                        <span id="/2019/01/04/Play-with-Data-Structure-Chapter-1/" class="leancloud_visitors" data-flag-title="大话数据结构">
+                        <span id="/2019/01/05/Play-with-Data-Structure-Chapter-3/" class="leancloud_visitors" data-flag-title="大话数据结构">
                         <span class="post-meta-divider">|</span>
                         <span class="post-meta-item-text"> View:  </span>
                         <span class="leancloud-visitors-count"></span>
@@ -319,11 +319,58 @@
                 post-container">
 
 				<h2 id="content">Content</h2>
-<p><img src="https://i.loli.net/2019/01/04/5c2f181362d60.png" alt="" /></p>
+<p>This is a C++ string class demo, I think it is helpful to understand list.</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">String</span> <span class="c1">// string is made up of an array of characters</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+	<span class="kt">char</span><span class="o">*</span> <span class="n">m_Buffer</span><span class="p">;</span> <span class="c1">// point to the buffer of chars</span>
+	<span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">m_Size</span><span class="p">;</span> <span class="c1">// keep track of how big the string is</span>
+<span class="k">public</span><span class="o">:</span>
+	<span class="n">String</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">string</span><span class="p">)</span> <span class="c1">// constructor</span>
+	<span class="p">{</span>
+		<span class="n">m_Size</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">string</span><span class="p">);</span> <span class="c1">// calculate how long the string is, so that we can copy the data from the string into the buffer</span>
+		<span class="n">m_Buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">m_Size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> <span class="c1">// decide how big of the buffer is</span>
+		<span class="n">memcpy</span><span class="p">(</span><span class="n">m_Buffer</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">m_Size</span><span class="p">);</span>
+		<span class="n">m_Buffer</span><span class="p">[</span><span class="n">m_Size</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="n">String</span><span class="p">(</span><span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="c1">// copy constructor</span>
+		<span class="o">:</span> <span class="n">m_Size</span><span class="p">(</span><span class="n">other</span><span class="p">.</span><span class="n">m_Size</span><span class="p">)</span> <span class="c1">// it's just an integer, so shallow copy is okay</span>
+	<span class="p">{</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Copied String!"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+		<span class="n">m_Buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="p">[</span><span class="n">m_Size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+		<span class="n">memcpy</span><span class="p">(</span><span class="n">m_Buffer</span><span class="p">,</span> <span class="n">other</span><span class="p">.</span><span class="n">m_Buffer</span><span class="p">,</span> <span class="n">m_Size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="cm">/*	: m_Buffer(other.m_Buffer), m_Size(other.m_Size)  // default copy constructor
+	{
+	}*/</span>
+
+	<span class="c1">// or use another way to define copy constructor</span>
+	<span class="cm">/*String(const String&amp; other)
+	{
+		memcpy(this, &amp;other, sizeof(String));
+	}
+	*/</span>
+
+	<span class="o">~</span><span class="n">String</span><span class="p">()</span> <span class="c1">// destructor</span>
+	<span class="p">{</span>
+		<span class="k">delete</span><span class="p">[]</span> <span class="n">m_Buffer</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">char</span><span class="o">&amp;</span> <span class="k">operator</span><span class="p">[](</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span>  <span class="c1">// operator overload</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="n">m_Buffer</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+	<span class="p">}</span>
+
+	<span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">stream</span><span class="p">,</span> <span class="k">const</span> <span class="n">String</span><span class="o">&amp;</span> <span class="n">string</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
 
 <h2 id="reference">Reference</h2>
 <ul>
   <li><a href="https://book.douban.com/subject/6424904/">大话数据结构</a></li>
+  <li><a href="https://juejin.im/post/5aa299c1518825557b4c5806">搞懂单链表常见面试题</a></li>
 </ul>
 
 
@@ -332,19 +379,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/12/21/Markdown/" data-toggle="tooltip" data-placement="top" title="Mardown">
-                        Previous<br>
-                        <span>Mardown</span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="next">
                         <a href="/2019/01/04/Play-with-Data-Structure-Chapter-2/" data-toggle="tooltip" data-placement="top" title="大话数据结构">
-                        Next<br>
+                        Previous<br>
                         <span>大话数据结构</span>
                         </a>
                     </li>
+                    
                     
                 </ul>
 
