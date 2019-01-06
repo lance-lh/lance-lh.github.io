@@ -11,7 +11,10 @@ tags:
 ---
 
 ## Content  
+![](https://s2.ax1x.com/2019/01/06/FHsJG4.png)
+
 This is a C++ string class demo, I think it is helpful to understand list.  
+
 ```c++
 class String // string is made up of an array of characters
 {
@@ -63,3 +66,4 @@ public:
 ## Reference  
 - [大话数据结构](https://book.douban.com/subject/6424904/)  
 - [搞懂单链表常见面试题](https://juejin.im/post/5aa299c1518825557b4c5806)  
+- [单链表（建立、插入、删除、打印）](https://www.cnblogs.com/wft1990/p/6718623.html)  
