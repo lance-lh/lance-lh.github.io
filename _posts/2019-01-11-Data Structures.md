@@ -15,7 +15,7 @@ This is [Data Structures tutorial](https://www.youtube.com/playlist?list=PL2_aWC
 ## Content  
 ### Course list  
 - [x] Introduction to data structures
-- [ ] Data Structures: List as abstract data type 
+- [x] Data Structures: List as abstract data type 
 - [ ] Introduction to linked list 
 - [ ] Data Structures: Arrays vs Linked Lists 
 - [ ] Linked List - Implementation in C/C++ 
@@ -76,3 +76,12 @@ We will study it from the following four aspects:
 2. operations (available to us)  
 3. cost of operations (time)  
 4. implementation (in the programming language)  
+
+### List as ADT  
+List is nothing but a collection of objects of the same type.  It is generally a fixed-size list, if the current list is full, you should create a bigger-size list to contain many elements.  
+Here, we mainly talk about the time complexity of list operations.  
+
+1. Access - Read or write element at an index,  constant time $O(1)$  
+2. Insert - depend on the list length, $O(n)$  
+3. Remove - $O(n)$  
+4. Add - $O(n)$  

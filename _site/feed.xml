@@ -5,8 +5,8 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 11 Jan 2019 15:32:18 +0800</pubDate>
-    <lastBuildDate>Fri, 11 Jan 2019 15:32:18 +0800</lastBuildDate>
+    <pubDate>Fri, 11 Jan 2019 16:37:08 +0800</pubDate>
+    <lastBuildDate>Fri, 11 Jan 2019 16:37:08 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -17,7 +17,7 @@
 &lt;h3 id=&quot;course-list&quot;&gt;Course list&lt;/h3&gt;
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Introduction to data structures&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data Structures: List as abstract data type&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Data Structures: List as abstract data type&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Introduction to linked list&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data Structures: Arrays vs Linked Lists&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List - Implementation in C/C++&lt;/li&gt;
@@ -84,6 +84,17 @@ We talk about data structures as:&lt;/p&gt;
   &lt;li&gt;operations (available to us)&lt;/li&gt;
   &lt;li&gt;cost of operations (time)&lt;/li&gt;
   &lt;li&gt;implementation (in the programming language)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;list-as-adt&quot;&gt;List as ADT&lt;/h3&gt;
+&lt;p&gt;List is nothing but a collection of objects of the same type.  It is generally a fixed-size list, if the current list is full, you should create a bigger-size list to contain many elements.&lt;br /&gt;
+Here, we mainly talk about the time complexity of list operations.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Access - Read or write element at an index,  constant time $O(1)$&lt;/li&gt;
+  &lt;li&gt;Insert - depend on the list length, $O(n)$&lt;/li&gt;
+  &lt;li&gt;Remove - $O(n)$&lt;/li&gt;
+  &lt;li&gt;Add - $O(n)$&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Fri, 11 Jan 2019 00:00:00 +0800</pubDate>

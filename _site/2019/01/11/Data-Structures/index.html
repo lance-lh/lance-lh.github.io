@@ -324,7 +324,7 @@
 <h3 id="course-list">Course list</h3>
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Introduction to data structures</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data Structures: List as abstract data type</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Data Structures: List as abstract data type</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Introduction to linked list</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data Structures: Arrays vs Linked Lists</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List - Implementation in C/C++</li>
@@ -391,6 +391,17 @@ We talk about data structures as:</p>
   <li>operations (available to us)</li>
   <li>cost of operations (time)</li>
   <li>implementation (in the programming language)</li>
+</ol>
+
+<h3 id="list-as-adt">List as ADT</h3>
+<p>List is nothing but a collection of objects of the same type.  It is generally a fixed-size list, if the current list is full, you should create a bigger-size list to contain many elements.<br />
+Here, we mainly talk about the time complexity of list operations.</p>
+
+<ol>
+  <li>Access - Read or write element at an index,  constant time $O(1)$</li>
+  <li>Insert - depend on the list length, $O(n)$</li>
+  <li>Remove - $O(n)$</li>
+  <li>Add - $O(n)$</li>
 </ol>
 
 
