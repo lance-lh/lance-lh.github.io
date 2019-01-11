@@ -5,14 +5,103 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 05 Jan 2019 22:04:37 +0800</pubDate>
-    <lastBuildDate>Sat, 05 Jan 2019 22:04:37 +0800</lastBuildDate>
+    <pubDate>Fri, 11 Jan 2019 15:32:18 +0800</pubDate>
+    <lastBuildDate>Fri, 11 Jan 2019 15:32:18 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Data Structures</title>
+        <description>&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;This is &lt;a href=&quot;https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&quot;&gt;Data Structures tutorial&lt;/a&gt; from YouTube. I will learn it step by step.&lt;/p&gt;
+&lt;h2 id=&quot;content&quot;&gt;Content&lt;/h2&gt;
+&lt;h3 id=&quot;course-list&quot;&gt;Course list&lt;/h3&gt;
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Introduction to data structures&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data Structures: List as abstract data type&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Introduction to linked list&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data Structures: Arrays vs Linked Lists&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List - Implementation in C/C++&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List in C/C++ - Inserting a node at beginning&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List in C/C++ - Insert a node at nth position&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List in C/C++ - Delete a node at nth position&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Reverse a linked list - Iterative method&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Print elements of a linked list in forward and reverse order using recursion&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Reverse a linked list using recursion&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Introduction to Doubly Linked List&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Doubly Linked List - Implementation in C/C++&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Introduction to stack&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Array implementation of stacks&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data Structures: Linked List implementation of stacks&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Reverse a string or linked list using stack.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Check for balanced parentheses using stack&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Infix, Prefix and Postfix&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Evaluation of Prefix and Postfix expressions using stack&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Infix to Postfix using stack&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Introduction to Queues&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Array implementation of Queue&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Linked List implementation of Queue&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Introduction to Trees&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Binary Tree&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Binary Search Tree&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Binary search tree - Implementation in C/C++&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;BST implementation -  memory allocation in stack and heap&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Find min and max element in a binary search tree&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Find height of a binary tree&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Binary tree traversal - breadth-first and depth-first strategies&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Binary tree: Level Order Traversal&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Binary tree traversal: Preorder, Inorder, Postorder&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Check if a binary tree is binary search tree or not&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Delete a node from Binary Search Tree&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Inorder Successor in a binary search tree&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Introduction to graphs&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data structures: Properties of Graphs&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Graph Representation part 01 - Edge List&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Graph Representation part 02 - Adjacency Matrix&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Graph Representation part 03 - Adjacency List&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I grab the html contents from source page, and use regular expression to parse it. &lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;(?&amp;lt;=aria-label\=&quot;).*?(?=by\smycodeschool)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://my.oschina.net/u/588516/blog/1601122&quot;&gt;匹配两个字符串之间的内容(正则表达式)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tool.oschina.net/regex&quot;&gt;在线正则表达式测试&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+&lt;h3 id=&quot;introduction-to-data-structures&quot;&gt;Introduction to data structures&lt;/h3&gt;
+&lt;p&gt;A data structure is a way to store and organize data in a computer, so that it can be used efficiently.&lt;br /&gt;
+We talk about data structures as:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Mathematical/Logical models, we defined them from abstract view, that is Abstract data types (ADT).&lt;/li&gt;
+  &lt;li&gt;Implementation, concrete data types&lt;br /&gt;
+&lt;code class=&quot;highlighter-rouge&quot;&gt;ADT&lt;/code&gt; is to define data and operations, but no implementation, e.g. arrays, linked list, stack, queue, tree, graph and so on.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We will study it from the following four aspects:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;logical view&lt;/li&gt;
+  &lt;li&gt;operations (available to us)&lt;/li&gt;
+  &lt;li&gt;cost of operations (time)&lt;/li&gt;
+  &lt;li&gt;implementation (in the programming language)&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Fri, 11 Jan 2019 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2019/01/11/Data-Structures/</link>
+        <guid isPermaLink="true">http://localhost:4000/2019/01/11/Data-Structures/</guid>
+        
+        <category>Data-Structure</category>
+        
+        
+      </item>
     
       <item>
         <title>大话数据结构</title>
         <description>&lt;h2 id=&quot;content&quot;&gt;Content&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;https://s2.ax1x.com/2019/01/06/FHsJG4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;This is a C++ string class demo, I think it is helpful to understand list.&lt;/p&gt;
+
 &lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// string is made up of an array of characters&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
@@ -64,6 +153,7 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://book.douban.com/subject/6424904/&quot;&gt;大话数据结构&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://juejin.im/post/5aa299c1518825557b4c5806&quot;&gt;搞懂单链表常见面试题&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/wft1990/p/6718623.html&quot;&gt;单链表（建立、插入、删除、打印）&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         <pubDate>Sat, 05 Jan 2019 00:00:00 +0800</pubDate>
@@ -2330,124 +2420,6 @@ const型变量的值在初始化后是不允许改变的（这是根本），那
         <category>Pygame</category>
         
         <category>Git</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Jekyll and Github Pages Deployment on Windows</title>
-        <description>&lt;h2 id=&quot;1-introduction&quot;&gt;1. Introduction&lt;/h2&gt;
-&lt;p&gt;This is a simple tutorial for deploying Jekyll and Github Pages on Windows.&lt;/p&gt;
-
-&lt;h2 id=&quot;2-jekyll-on-windows&quot;&gt;2. Jekyll on Windows&lt;/h2&gt;
-&lt;h3 id=&quot;21-ruby--devkit-installation&quot;&gt;2.1 Ruby + Devkit installation&lt;/h3&gt;
-
-&lt;p&gt;​    You need to go to official website: http://rubyinstaller.org/downloads/ to download x64 version installer (It depends on your system.)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/sp181112_154315.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/sp181112_154351.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;22-jekyll-installation&quot;&gt;2.2 Jekyll installation&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;check current gem source&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sources&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;remove official gem source&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rubygems&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;add a new gem source&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gems&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ruby&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;china&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;ensure official gem source not in the list&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sources&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;update gem&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;install Jekyll&lt;/p&gt;
-
-    &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;jekyll&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/img/2018-11-12/2018-11-12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;23--test-jekyll&quot;&gt;2.3  Test Jekyll&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/2018-11-12/2018-11-12_154010.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;24-attention&quot;&gt;2.4 Attention&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;rubyinstaller-devkit-2.5.3-1-x64.exe&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Git-2.19.1-64-bit.exe&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;typora-setup-x64.exe&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Windows SSH&lt;/p&gt;
-
-    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; rsa &lt;span class=&quot;nt&quot;&gt;-C&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;your github Email&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;Then find the public key in your disk, &lt;code class=&quot;highlighter-rouge&quot;&gt;id_rsa.pub&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;Open your github SSH setting, copy the key into it.&lt;/p&gt;
-
-    &lt;p&gt;That’s done!&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;display image &lt;br /&gt;
-One way is to use relative address, not absolute address!&lt;br /&gt;
-The other way is &lt;em&gt;image hosting service&lt;/em&gt; (图床).&lt;/p&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Image_hosting_service&quot;&gt;An image hosting service allows individuals to upload images to an Internet website. 
-The image host will then store the image onto its server, and show the individual 
-different types of code to allow others to view that image.&lt;/a&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;First, you need to upload your images to &lt;em&gt;image hosting service&lt;/em&gt;,
-then add images to Markdown by using URL address.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;3-reference&quot;&gt;3. Reference&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/1093b5565918&quot;&gt;Jekyll安装教程&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-        <pubDate>Mon, 12 Nov 2018 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2018/11/12/Jekyll-and-Github-Pages-Deployment-on-Windows/</link>
-        <guid isPermaLink="true">http://localhost:4000/2018/11/12/Jekyll-and-Github-Pages-Deployment-on-Windows/</guid>
-        
-        <category>Jekyll</category>
-        
-        <category>SSH</category>
         
         
       </item>

@@ -10,7 +10,7 @@
     <meta name="keywords"  content="">
     <meta name="theme-color" content="">
     
-    <title>Python Project Review - lance-lh</title>
+    <title>Data Structures - lance-lh</title>
 
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2018/11/12/Python-Project-Review-Alien-Invasion/">
+    <link rel="canonical" href="http://localhost:4000/2019/01/11/Data-Structures/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -285,21 +285,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Python" title="Python">Python</a>
-                        
-                        <a class="tag" href="/tags/#Pygame" title="Pygame">Pygame</a>
-                        
-                        <a class="tag" href="/tags/#Git" title="Git">Git</a>
+                        <a class="tag" href="/tags/#Data-Structure" title="Data-Structure">Data-Structure</a>
                         
                     </div>
-                    <h1>Python Project Review</h1>
+                    <h1>Data Structures</h1>
                     
                     
-                    <h2 class="subheading">Alien Invasion</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Lance on November 12, 2018</span>
+                    <span class="meta">Posted by Lance on January 11, 2019</span>
                     
-                        <span id="/2018/11/12/Python-Project-Review-Alien-Invasion/" class="leancloud_visitors" data-flag-title="Python Project Review">
+                        <span id="/2019/01/11/Data-Structures/" class="leancloud_visitors" data-flag-title="Data Structures">
                         <span class="post-meta-divider">|</span>
                         <span class="post-meta-item-text"> View:  </span>
                         <span class="leancloud-visitors-count"></span>
@@ -322,130 +318,80 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="content">Content</h2>
-<p>You can git clone learning project alien_invasion here:</p>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lance-lh/alien_invasion.git
-</code></pre></div></div>
-<p><em>1. class</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Alien</span><span class="p">(</span><span class="n">Sprite</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Alien</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ai_settings</span> <span class="o">=</span> <span class="n">ai_settings</span>
-</code></pre></div></div>
-
-<p><em>2. load image</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">'images/alien.bmp'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p><em>3. get rectangular method</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span> <span class="c1"># rect method (center,centerx,middle,left,right...)
-</span></code></pre></div></div>
-
-<p><em>4. draw one image onto another</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># blit(dest_image, location) location is obtained by rect method
-</span>  
-  
-<span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span> 
-</code></pre></div></div>
-<p><em>5. initialize game</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">run_game</span><span class="p">():</span>  <span class="c1"># initialize the game, screen object,setting
-</span>    
-    
-    <span class="n">pygame</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
-    <span class="n">ai_settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
-    <span class="n">screen</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span>
-        <span class="p">(</span><span class="n">ai_settings</span><span class="o">.</span><span class="n">screen_width</span><span class="p">,</span><span class="n">ai_settings</span><span class="o">.</span><span class="n">screen_height</span><span class="p">))</span>  <span class="c1"># define a tuple which indicates screen size, width:1200, height:800.
-</span>        
-    <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">set_caption</span><span class="p">(</span><span class="s">"Alien Invasion"</span><span class="p">)</span>
-</code></pre></div></div>
-<p><em>6. Group</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">bullets</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
-     <span class="n">aliens</span> <span class="o">=</span> <span class="n">Group</span><span class="p">()</span>
-</code></pre></div></div>
-<p><em>7. rect method</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a bullet rectangular at (0,0) and then move it to proper location
-</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">Rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">ai_settings</span><span class="o">.</span><span class="n">bullet_width</span><span class="p">,</span> <span class="n">ai_settings</span><span class="o">.</span><span class="n">bullet_height</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">centerx</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">centerx</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="n">ship</span><span class="o">.</span><span class="n">rect</span><span class="o">.</span><span class="n">top</span>
-        
-    <span class="k">def</span> <span class="nf">draw_bullet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s">'''paint bullet in the screen'''</span>
-        <span class="n">pygame</span><span class="o">.</span><span class="n">draw</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">screen</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
-</code></pre></div></div>
-<p><em>8. Pygame font</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">self</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">SysFont</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span><span class="mi">48</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p><em>9. score to image</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">def</span> <span class="nf">prep_score</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s">'''score to image'''</span>
-        <span class="n">rounded_score</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">score</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
-        <span class="n">score_str</span> <span class="o">=</span> <span class="s">"{:,}"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">rounded_score</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">score_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">score_str</span><span class="p">,</span><span class="bp">True</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">text_color</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ai_settings</span><span class="o">.</span><span class="n">bg_color</span><span class="p">)</span>
-
-        <span class="c1"># put score image on the top right of screen
-</span>        
-        
-        <span class="bp">self</span><span class="o">.</span><span class="n">score_rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score_image</span><span class="o">.</span><span class="n">get_rect</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">score_rect</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen_rect</span><span class="o">.</span><span class="n">right</span> <span class="o">-</span> <span class="mi">20</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">score_rect</span><span class="o">.</span><span class="n">top</span> <span class="o">=</span> <span class="mi">20</span>
-</code></pre></div></div>
-
-<p><em>10. reset game status</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">self</span><span class="o">.</span><span class="n">reset_stats</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><em>11. quit game</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="k">def</span> <span class="nf">check_keydown_events</span><span class="p">(</span><span class="n">event</span><span class="p">,</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span> <span class="n">ship</span><span class="p">,</span><span class="n">bullets</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_RIGHT</span><span class="p">:</span>
-        <span class="n">ship</span><span class="o">.</span><span class="n">moving_right</span> <span class="o">=</span> <span class="bp">True</span>
-
-    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_LEFT</span><span class="p">:</span>
-        <span class="n">ship</span><span class="o">.</span><span class="n">moving_left</span> <span class="o">=</span> <span class="bp">True</span>
-
-    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_SPACE</span><span class="p">:</span>
-        <span class="n">fire_bullet</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">bullets</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="n">pygame</span><span class="o">.</span><span class="n">K_q</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="nb">exit</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><em>12. collision check</em></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">check_bullet_alien_collisons</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">stats</span><span class="p">,</span><span class="n">sb</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">aliens</span><span class="p">,</span><span class="n">bullets</span><span class="p">):</span>
-    <span class="s">'''respond to collision between aliens and bullets'''</span>
-    <span class="c1"># delete crashed bullets and aliens
-</span>    
-    <span class="n">collissions</span> <span class="o">=</span> <span class="n">pygame</span><span class="o">.</span><span class="n">sprite</span><span class="o">.</span><span class="n">groupcollide</span><span class="p">(</span><span class="n">bullets</span><span class="p">,</span><span class="n">aliens</span><span class="p">,</span><span class="bp">True</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>  <span class="c1"># return a dict , key is a bullet and value is an alien
-</span>
-    <span class="k">if</span> <span class="n">collissions</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">aliens</span> <span class="ow">in</span> <span class="n">collissions</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="n">stats</span><span class="o">.</span><span class="n">score</span> <span class="o">+=</span> <span class="n">ai_settings</span><span class="o">.</span><span class="n">alien_points</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">aliens</span><span class="p">)</span>
-            <span class="n">sb</span><span class="o">.</span><span class="n">prep_score</span><span class="p">()</span>
-        <span class="n">check_high_score</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span><span class="n">sb</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">aliens</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c1"># delete existing bullets and create new aliens
-</span>        
-        <span class="n">bullets</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span>
-        <span class="n">ai_settings</span><span class="o">.</span><span class="n">increase_speed</span><span class="p">()</span>
-
-        <span class="c1"># level up
-</span>        
-        <span class="n">stats</span><span class="o">.</span><span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">sb</span><span class="o">.</span><span class="n">prep_level</span><span class="p">()</span>
-
-        <span class="n">create_fleet</span><span class="p">(</span><span class="n">ai_settings</span><span class="p">,</span><span class="n">screen</span><span class="p">,</span><span class="n">ship</span><span class="p">,</span><span class="n">aliens</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h2 id="reference">Reference</h2>
-<ul>
-  <li><a href="https://ehmatthes.github.io/pcc/">Python Crash Course</a></li>
-  <li><a href="https://www.pygame.org/docs/">Pygame documentation</a></li>
+				<h2 id="introduction">Introduction</h2>
+<p>This is <a href="https://www.youtube.com/playlist?list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P">Data Structures tutorial</a> from YouTube. I will learn it step by step.</p>
+<h2 id="content">Content</h2>
+<h3 id="course-list">Course list</h3>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Introduction to data structures</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data Structures: List as abstract data type</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Introduction to linked list</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data Structures: Arrays vs Linked Lists</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List - Implementation in C/C++</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List in C/C++ - Inserting a node at beginning</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List in C/C++ - Insert a node at nth position</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List in C/C++ - Delete a node at nth position</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Reverse a linked list - Iterative method</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Print elements of a linked list in forward and reverse order using recursion</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Reverse a linked list using recursion</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Introduction to Doubly Linked List</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Doubly Linked List - Implementation in C/C++</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Introduction to stack</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Array implementation of stacks</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data Structures: Linked List implementation of stacks</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Reverse a string or linked list using stack.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Check for balanced parentheses using stack</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Infix, Prefix and Postfix</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Evaluation of Prefix and Postfix expressions using stack</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Infix to Postfix using stack</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Introduction to Queues</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Array implementation of Queue</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Linked List implementation of Queue</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Introduction to Trees</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Binary Tree</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Binary Search Tree</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Binary search tree - Implementation in C/C++</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />BST implementation -  memory allocation in stack and heap</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Find min and max element in a binary search tree</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Find height of a binary tree</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Binary tree traversal - breadth-first and depth-first strategies</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Binary tree: Level Order Traversal</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Binary tree traversal: Preorder, Inorder, Postorder</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Check if a binary tree is binary search tree or not</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Delete a node from Binary Search Tree</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Inorder Successor in a binary search tree</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Introduction to graphs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Properties of Graphs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Graph Representation part 01 - Edge List</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Graph Representation part 02 - Adjacency Matrix</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Graph Representation part 03 - Adjacency List</li>
 </ul>
+
+<p>I grab the html contents from source page, and use regular expression to parse it. <br />
+<code class="highlighter-rouge">(?&lt;=aria-label\=").*?(?=by\smycodeschool)</code></p>
+
+<ul>
+  <li><a href="https://my.oschina.net/u/588516/blog/1601122">匹配两个字符串之间的内容(正则表达式)</a></li>
+  <li><a href="http://tool.oschina.net/regex">在线正则表达式测试</a></li>
+</ul>
+
+<hr />
+<h3 id="introduction-to-data-structures">Introduction to data structures</h3>
+<p>A data structure is a way to store and organize data in a computer, so that it can be used efficiently.<br />
+We talk about data structures as:</p>
+<ol>
+  <li>Mathematical/Logical models, we defined them from abstract view, that is Abstract data types (ADT).</li>
+  <li>Implementation, concrete data types<br />
+<code class="highlighter-rouge">ADT</code> is to define data and operations, but no implementation, e.g. arrays, linked list, stack, queue, tree, graph and so on.</li>
+</ol>
+
+<p>We will study it from the following four aspects:</p>
+<ol>
+  <li>logical view</li>
+  <li>operations (available to us)</li>
+  <li>cost of operations (time)</li>
+  <li>implementation (in the programming language)</li>
+</ol>
 
 
                 <hr style="visibility: hidden;">
@@ -453,19 +399,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/11/12/Jekyll-and-Github-Pages-Deployment-on-Windows/" data-toggle="tooltip" data-placement="top" title="Jekyll and Github Pages Deployment on Windows">
+                        <a href="/2019/01/05/Play-with-Data-Structure-Chapter-3/" data-toggle="tooltip" data-placement="top" title="大话数据结构">
                         Previous<br>
-                        <span>Jekyll and Github Pages Deployment on Windows</span>
+                        <span>大话数据结构</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2018/11/13/Python-Project-Review-Data-Visualization/" data-toggle="tooltip" data-placement="top" title="Python Project Review">
-                        Next<br>
-                        <span>Python Project Review</span>
-                        </a>
-                    </li>
                     
                 </ul>
 
