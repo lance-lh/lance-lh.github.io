@@ -89,13 +89,40 @@ Here, we mainly talk about the time complexity of list operations.
 ### linked list  
 For array created using "malloc" function in C (dynamic memory allocation), we can use "realloc" function to re-size it. Same memory block may be extended if space adjacent to the block is available. Else, a new block is created.  
 **head**, the address of the head node gives us access of the complete list.   
-
+![](https://i.loli.net/2019/01/12/5c39d7182f4ad.png)
 **Time complexity:** 
 1. Access to elements: $O(n)$
 2. Insert: $O(n)$
 3. Delete: $O(n)$
-![](https://i.loli.net/2019/01/12/5c39d7182f4ad.png)
 
+### array vs linked list  
+![](https://i.loli.net/2019/01/12/5c39e82caf0a5.jpg)
+* Cost of accessing an element
+
+  For **array**, it provides a base address (head address), and array is stored in the contiguous manner. So given an array A for accessing t-th element, it just calculate the result of `base address + i *sizeof(array_data_type)`; time complexity: $O(1)$
+
+  For **linked list**, because it is a ordered list, we have to start with head node. So, it is kind of like traversing. time complexity: $O(n)$
+
+* Memory requirements
+
+  For **array**, it is fixed size and memory may not be available as one large block
+
+  For **linked list**, it has no unused memory and it has extra memory for pointer variables. Memory may be available as multiple small blocks
+
+* Cost of inserting (deleting) an element
+
+  |      cases       |           Array           | Linked list |
+  | :--------------: | :-----------------------: | :---------: |
+  |   at beginning   |          $O(n)$           |   $O(n)$    |
+  |      at end      | array is not full: $O(1)$ |   $O(n)$    |
+  |                  |   array is full: $O(n)$   |             |
+  | at i-th position |          $O(n)$           |   $O(n)$    |
+
+* Ease of use (implementation)
+
+  For **array**, it is easy.
+
+  For **linked list**, it may be difficult for C/C++. It may cause segmentation fault or memory leak.
 
 
 

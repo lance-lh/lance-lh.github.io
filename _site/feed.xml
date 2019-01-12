@@ -5,8 +5,8 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 12 Jan 2019 20:09:02 +0800</pubDate>
-    <lastBuildDate>Sat, 12 Jan 2019 20:09:02 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Jan 2019 21:17:41 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Jan 2019 21:17:41 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -99,15 +99,75 @@ Here, we mainly talk about the time complexity of list operations.&lt;/p&gt;
 
 &lt;h3 id=&quot;linked-list&quot;&gt;linked list&lt;/h3&gt;
 &lt;p&gt;For array created using “malloc” function in C (dynamic memory allocation), we can use “realloc” function to re-size it. Same memory block may be extended if space adjacent to the block is available. Else, a new block is created.&lt;br /&gt;
-&lt;strong&gt;head&lt;/strong&gt;, the address of the head node gives us access of the complete list.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Time complexity:&lt;/strong&gt;&lt;/p&gt;
+&lt;strong&gt;head&lt;/strong&gt;, the address of the head node gives us access of the complete list. &lt;br /&gt;
+&lt;img src=&quot;https://i.loli.net/2019/01/12/5c39d7182f4ad.png&quot; alt=&quot;&quot; /&gt;
+&lt;strong&gt;Time complexity:&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
   &lt;li&gt;Access to elements: $O(n)$&lt;/li&gt;
   &lt;li&gt;Insert: $O(n)$&lt;/li&gt;
-  &lt;li&gt;Delete: $O(n)$
-&lt;img src=&quot;https://i.loli.net/2019/01/12/5c39d7182f4ad.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;Delete: $O(n)$&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h3 id=&quot;array-vs-linked-list&quot;&gt;array vs linked list&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.loli.net/2019/01/12/5c39e82caf0a5.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cost of accessing an element&lt;/p&gt;
+
+    &lt;p&gt;For &lt;strong&gt;array&lt;/strong&gt;, it provides a base address (head address), and array is stored in the contiguous manner. So given an array A for accessing t-th element, it just calculate the result of &lt;code class=&quot;highlighter-rouge&quot;&gt;base address + i *sizeof(array_data_type)&lt;/code&gt;; time complexity: $O(1)$&lt;/p&gt;
+
+    &lt;p&gt;For &lt;strong&gt;linked list&lt;/strong&gt;, because it is a ordered list, we have to start with head node. So, it is kind of like traversing. time complexity: $O(n)$&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Memory requirements&lt;/p&gt;
+
+    &lt;p&gt;For &lt;strong&gt;array&lt;/strong&gt;, it is fixed size and memory may not be available as one large block&lt;/p&gt;
+
+    &lt;p&gt;For &lt;strong&gt;linked list&lt;/strong&gt;, it has no unused memory and it has extra memory for pointer variables. Memory may be available as multiple small blocks&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cost of inserting (deleting) an element&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;cases&lt;/th&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;Array&lt;/th&gt;
+          &lt;th style=&quot;text-align: center&quot;&gt;Linked list&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;at beginning&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;$O(n)$&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;$O(n)$&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;at end&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;array is not full: $O(1)$&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;$O(n)$&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;array is full: $O(n)$&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;at i-th position&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;$O(n)$&lt;/td&gt;
+          &lt;td style=&quot;text-align: center&quot;&gt;$O(n)$&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Ease of use (implementation)&lt;/p&gt;
+
+    &lt;p&gt;For &lt;strong&gt;array&lt;/strong&gt;, it is easy.&lt;/p&gt;
+
+    &lt;p&gt;For &lt;strong&gt;linked list&lt;/strong&gt;, it may be difficult for C/C++. It may cause segmentation fault or memory leak.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
         <pubDate>Fri, 11 Jan 2019 00:00:00 +0800</pubDate>
