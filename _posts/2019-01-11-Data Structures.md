@@ -16,7 +16,7 @@ This is [Data Structures tutorial](https://www.youtube.com/playlist?list=PL2_aWC
 ### Course list  
 - [x] Introduction to data structures
 - [x] Data Structures: List as abstract data type 
-- [ ] Introduction to linked list 
+- [x] Introduction to linked list 
 - [ ] Data Structures: Arrays vs Linked Lists 
 - [ ] Linked List - Implementation in C/C++ 
 - [ ] Linked List in C/C++ - Inserting a node at beginning 
@@ -85,3 +85,47 @@ Here, we mainly talk about the time complexity of list operations.
 2. Insert - depend on the list length, $O(n)$  
 3. Remove - $O(n)$  
 4. Add - $O(n)$  
+
+### linked list  
+For array created using "malloc" function in C (dynamic memory allocation), we can use "realloc" function to re-size it. Same memory block may be extended if space adjacent to the block is available. Else, a new block is created.  
+**head**, the address of the head node gives us access of the complete list.   
+
+**Time complexity:** 
+1. Access to elements: $O(n)$
+2. Insert: $O(n)$
+3. Delete: $O(n)$
+![](https://i.loli.net/2019/01/12/5c39d7182f4ad.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

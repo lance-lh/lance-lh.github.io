@@ -5,8 +5,8 @@
     <description>Stay hungry,Stay foolish</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 11 Jan 2019 16:37:08 +0800</pubDate>
-    <lastBuildDate>Fri, 11 Jan 2019 16:37:08 +0800</lastBuildDate>
+    <pubDate>Sat, 12 Jan 2019 20:09:02 +0800</pubDate>
+    <lastBuildDate>Sat, 12 Jan 2019 20:09:02 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -18,7 +18,7 @@
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Introduction to data structures&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Data Structures: List as abstract data type&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Introduction to linked list&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Introduction to linked list&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Data Structures: Arrays vs Linked Lists&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List - Implementation in C/C++&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Linked List in C/C++ - Inserting a node at beginning&lt;/li&gt;
@@ -96,6 +96,19 @@ Here, we mainly talk about the time complexity of list operations.&lt;/p&gt;
   &lt;li&gt;Remove - $O(n)$&lt;/li&gt;
   &lt;li&gt;Add - $O(n)$&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h3 id=&quot;linked-list&quot;&gt;linked list&lt;/h3&gt;
+&lt;p&gt;For array created using “malloc” function in C (dynamic memory allocation), we can use “realloc” function to re-size it. Same memory block may be extended if space adjacent to the block is available. Else, a new block is created.&lt;br /&gt;
+&lt;strong&gt;head&lt;/strong&gt;, the address of the head node gives us access of the complete list.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Time complexity:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Access to elements: $O(n)$&lt;/li&gt;
+  &lt;li&gt;Insert: $O(n)$&lt;/li&gt;
+  &lt;li&gt;Delete: $O(n)$
+&lt;img src=&quot;https://i.loli.net/2019/01/12/5c39d7182f4ad.png&quot; alt=&quot;&quot; /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
 </description>
         <pubDate>Fri, 11 Jan 2019 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/2019/01/11/Data-Structures/</link>
