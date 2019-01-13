@@ -22,7 +22,7 @@ This is [Data Structures tutorial](https://www.youtube.com/playlist?list=PL2_aWC
 - [x] Linked List in C/C++ - Inserting a node at beginning 
 - [x] Linked List in C/C++ - Insert a node at nth position 
 - [x] Linked List in C/C++ - Delete a node at nth position 
-- [ ] Reverse a linked list - Iterative method 
+- [x] Reverse a linked list - Iterative method 
 - [ ] Print elements of a linked list in forward and reverse order using recursion 
 - [ ] Reverse a linked list using recursion 
 - [ ] Data structures: Introduction to Doubly Linked List 
@@ -113,7 +113,7 @@ For array created using "malloc" function in C (dynamic memory allocation), we c
 
   |      cases       |           Array           | Linked list |
   | :--------------: | :-----------------------: | :---------: |
-  |   at beginning   |          $O(n)$           |   $O(n)$    |
+  |   at beginning   |          $O(n)$           |   $O(1)$    |
   |      at end      | array is not full: $O(1)$ |   $O(n)$    |
   |                  |   array is full: $O(n)$   |             |
   | at i-th position |          $O(n)$           |   $O(n)$    |
@@ -126,7 +126,13 @@ For array created using "malloc" function in C (dynamic memory allocation), we c
 
 ### lined list implementation  
 * [C++中数组定义及初始化](https://www.cnblogs.com/SarahZhang0104/p/5749680.html)
+
 * [A Comprehensive Guide To Singly Linked List Using C++](https://www.codementor.io/codementorteam/a-comprehensive-guide-to-implementation-of-singly-linked-list-using-c_plus_plus-ondlm5azr#comments-ondlm5azr)
+
+* [Reverse a linked list](https://www.geeksforgeeks.org/reverse-a-linked-list/)
+
+![](https://i.loli.net/2019/01/13/5c3b4571ba9df.png)
+
 
 ```c++
 #include<iostream>
@@ -142,7 +148,7 @@ class LinkedList
 private:
 	Node *head, *tail;
 public:
-	LinkedList()  // constructor
+	LinkedList() 
 	{
 		head = NULL;
 		tail = NULL;
@@ -154,14 +160,14 @@ public:
 		temp->data = value;
 		temp->next = NULL;
 
-		if (head == NULL)  // empty linked list
+		if (head == NULL) 
 		{
 			head = temp;
 			tail = temp;
 			temp = NULL;
 		}
 
-		else  // linked list is not empty
+		else  
 		{
 			tail->next = temp;
 			tail = temp;
@@ -176,7 +182,7 @@ public:
 			std::cout << temp->data << "\t";
 			temp = temp->next;
 		}
-		std::cout << "\n==================================================";
+		std::cout << "\n==================================================\n";
 	}
 	void Insert_start(int value)
 	{
@@ -185,7 +191,7 @@ public:
 		temp->next = head;
 		head = temp;
 	}
-	void Insert_end(int value)  // same to CreateNode
+	void Insert_end(int value)  
 	{
 		Node* temp = new Node;
 		temp->data = value;
@@ -195,9 +201,9 @@ public:
 	}
 	void Insert_position(int value, int pos)
 	{
-		Node* temp = new Node;	// to be inserted Node between pre and cur
-		Node* pre = new Node;	// previous adjacent Node
-		Node* cur = new Node;	// current Node
+		Node* temp = new Node;	
+		Node* pre = new Node;	
+		Node* cur = new Node;	
 
 		cur = head;
 		for (int i = 0; i < pos; i++)
@@ -215,8 +221,6 @@ public:
 		temp = head;
 		head = head->next;
 		delete temp;
-
-		//head = head->next;
 	}
 	void Delete_end()
 	{
@@ -227,7 +231,7 @@ public:
 		while (cur->next != NULL)
 		{
 			pre = cur;
-			cur = cur->next;  // traverse till the end, cur = tail
+			cur = cur->next; 
 		}
 		tail = pre;
 		pre->next = NULL;
@@ -246,6 +250,24 @@ public:
 		}
 		left->next = cur->next;
 	}
+	void Reverse()
+	{
+		Node* cur = new Node;
+		Node* left = new Node;
+		Node* right = new Node;
+
+		left = NULL;
+		right = NULL;
+		cur = head;
+		while (cur != NULL)
+		{
+			right = cur->next;
+			cur->next = left;
+			left = cur;
+			cur = right;
+		}
+		head = left;
+	}
 
 };
 
@@ -260,28 +282,32 @@ int main()
 	std::cout << "===========create a list==========================\n";
 	ll.Display();
 
-	std::cout << "\n==========Insert at beginning=====================\n";
+	std::cout << "==========Insert at beginning=====================\n";
 	ll.Insert_start(36);
 	ll.Display();
 
-	std::cout << "\n==========Insert at end===========================\n";
+	std::cout << "==========Insert at end===========================\n";
 	ll.Insert_end(73);
 	ll.Display();
 
-	std::cout << "\n==========Insert at 2-th position=================\n";
+	std::cout << "==========Insert at 2-th position=================\n";
 	ll.Insert_position(98, 2);
 	ll.Display();
 
-	std::cout << "\n==========Delete start============================\n";
+	std::cout << "==========Delete start============================\n";
 	ll.Delete_start();
 	ll.Display();
 
-	std::cout << "\n==========Delete end==============================\n";
+	std::cout << "==========Delete end==============================\n";
 	ll.Delete_end();
 	ll.Display();
 
-	std::cout << "\n==========Delete at 2-th position=================\n";
+	std::cout << "==========Delete at 2-th position=================\n";
 	ll.Delete_position(2);
+	ll.Display();
+
+	std::cout << "==========Reverse linked list=====================\n";
+	ll.Reverse();
 	ll.Display();
 
 	std::cin.get();
@@ -309,6 +335,9 @@ results:
 ==================================================
 ==========Delete at 2-th position=================
 25      98      90      40
+==================================================
+==========Reverse linked list=====================
+40      90      98      25
 ==================================================
 ```
 

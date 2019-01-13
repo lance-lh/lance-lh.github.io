@@ -326,12 +326,12 @@
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Introduction to data structures</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Data Structures: List as abstract data type</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Introduction to linked list</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data Structures: Arrays vs Linked Lists</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List - Implementation in C/C++</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List in C/C++ - Inserting a node at beginning</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List in C/C++ - Insert a node at nth position</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Linked List in C/C++ - Delete a node at nth position</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Reverse a linked list - Iterative method</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Data Structures: Arrays vs Linked Lists</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Linked List - Implementation in C/C++</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Linked List in C/C++ - Inserting a node at beginning</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Linked List in C/C++ - Insert a node at nth position</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Linked List in C/C++ - Delete a node at nth position</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Reverse a linked list - Iterative method</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Print elements of a linked list in forward and reverse order using recursion</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Reverse a linked list using recursion</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Data structures: Introduction to Doubly Linked List</li>
@@ -447,7 +447,7 @@ Here, we mainly talk about the time complexity of list operations.</p>
         <tr>
           <td style="text-align: center">at beginning</td>
           <td style="text-align: center">$O(n)$</td>
-          <td style="text-align: center">$O(n)$</td>
+          <td style="text-align: center">$O(1)$</td>
         </tr>
         <tr>
           <td style="text-align: center">at end</td>
@@ -475,6 +475,226 @@ Here, we mainly talk about the time complexity of list operations.</p>
     <p>For <strong>linked list</strong>, it may be difficult for C/C++. It may cause segmentation fault or memory leak.</p>
   </li>
 </ul>
+
+<h3 id="lined-list-implementation">lined list implementation</h3>
+<ul>
+  <li>
+    <p><a href="https://www.cnblogs.com/SarahZhang0104/p/5749680.html">C++中数组定义及初始化</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.codementor.io/codementorteam/a-comprehensive-guide-to-implementation-of-singly-linked-list-using-c_plus_plus-ondlm5azr#comments-ondlm5azr">A Comprehensive Guide To Singly Linked List Using C++</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.geeksforgeeks.org/reverse-a-linked-list/">Reverse a linked list</a></p>
+  </li>
+</ul>
+
+<p><img src="https://i.loli.net/2019/01/13/5c3b4571ba9df.png" alt="" /></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;iostream&gt;
+</span>
+<span class="k">struct</span> <span class="n">Node</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+	<span class="n">Node</span><span class="o">*</span> <span class="n">next</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">LinkedList</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+	<span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">tail</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+	<span class="n">LinkedList</span><span class="p">()</span> 
+	<span class="p">{</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="n">tail</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">void</span> <span class="n">CreateNode</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+		<span class="k">if</span> <span class="p">(</span><span class="n">head</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> 
+		<span class="p">{</span>
+			<span class="n">head</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+			<span class="n">tail</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+			<span class="n">temp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="p">}</span>
+
+		<span class="k">else</span>  
+		<span class="p">{</span>
+			<span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+			<span class="n">tail</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Display</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">temp</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="k">while</span> <span class="p">(</span><span class="n">temp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\t</span><span class="s">"</span><span class="p">;</span>
+			<span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"</span><span class="se">\n</span><span class="s">==================================================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Insert_start</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Insert_end</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span>  
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+		<span class="n">tail</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Insert_position</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>	
+		<span class="n">Node</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>	
+		<span class="n">Node</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>	
+
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pos</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+			<span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+		<span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+		<span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Delete_start</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">temp</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="n">temp</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Delete_end</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+			<span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+		<span class="p">}</span>
+		<span class="n">tail</span> <span class="o">=</span> <span class="n">pre</span><span class="p">;</span>
+		<span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="k">delete</span> <span class="n">cur</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Delete_position</span><span class="p">(</span><span class="kt">int</span> <span class="n">pos</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pos</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">left</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+			<span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">left</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="kt">void</span> <span class="n">Reverse</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">left</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+		<span class="n">Node</span><span class="o">*</span> <span class="n">right</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+
+		<span class="n">left</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+		<span class="k">while</span> <span class="p">(</span><span class="n">cur</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">right</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+			<span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+			<span class="n">left</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+			<span class="n">cur</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">head</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+	<span class="p">}</span>
+
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">LinkedList</span> <span class="n">ll</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">values</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">25</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span><span class="mi">40</span> <span class="p">};</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">ll</span><span class="p">.</span><span class="n">CreateNode</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"===========create a list==========================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Insert at beginning=====================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Insert_start</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Insert at end===========================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Insert_end</span><span class="p">(</span><span class="mi">73</span><span class="p">);</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Insert at 2-th position=================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Insert_position</span><span class="p">(</span><span class="mi">98</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Delete start============================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Delete_start</span><span class="p">();</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Delete end==============================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Delete_end</span><span class="p">();</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Delete at 2-th position=================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Delete_position</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"==========Reverse linked list=====================</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Reverse</span><span class="p">();</span>
+	<span class="n">ll</span><span class="p">.</span><span class="n">Display</span><span class="p">();</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">get</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>results:</p>
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">===========</span><span class="n">create</span> <span class="n">a</span> <span class="n">list</span><span class="o">==========================</span>
+<span class="mi">25</span>      <span class="mi">50</span>      <span class="mi">90</span>      <span class="mi">40</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Insert</span> <span class="n">at</span> <span class="n">beginning</span><span class="o">=====================</span>
+<span class="mi">36</span>      <span class="mi">25</span>      <span class="mi">50</span>      <span class="mi">90</span>      <span class="mi">40</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Insert</span> <span class="n">at</span> <span class="n">end</span><span class="o">===========================</span>
+<span class="mi">36</span>      <span class="mi">25</span>      <span class="mi">50</span>      <span class="mi">90</span>      <span class="mi">40</span>      <span class="mi">73</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Insert</span> <span class="n">at</span> <span class="mi">2</span><span class="o">-</span><span class="n">th</span> <span class="n">position</span><span class="o">=================</span>
+<span class="mi">36</span>      <span class="mi">25</span>      <span class="mi">98</span>      <span class="mi">50</span>      <span class="mi">90</span>      <span class="mi">40</span>      <span class="mi">73</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Delete</span> <span class="n">start</span><span class="o">============================</span>
+<span class="mi">25</span>      <span class="mi">98</span>      <span class="mi">50</span>      <span class="mi">90</span>      <span class="mi">40</span>      <span class="mi">73</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Delete</span> <span class="n">end</span><span class="o">==============================</span>
+<span class="mi">25</span>      <span class="mi">98</span>      <span class="mi">50</span>      <span class="mi">90</span>      <span class="mi">40</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Delete</span> <span class="n">at</span> <span class="mi">2</span><span class="o">-</span><span class="n">th</span> <span class="n">position</span><span class="o">=================</span>
+<span class="mi">25</span>      <span class="mi">98</span>      <span class="mi">90</span>      <span class="mi">40</span>
+<span class="o">==================================================</span>
+<span class="o">==========</span><span class="n">Reverse</span> <span class="n">linked</span> <span class="n">list</span><span class="o">=====================</span>
+<span class="mi">40</span>      <span class="mi">90</span>      <span class="mi">98</span>      <span class="mi">25</span>
+<span class="o">==================================================</span>
+</code></pre></div></div>
 
 
 
