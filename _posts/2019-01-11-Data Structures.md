@@ -17,11 +17,11 @@ This is [Data Structures tutorial](https://www.youtube.com/playlist?list=PL2_aWC
 - [x] Introduction to data structures
 - [x] Data Structures: List as abstract data type 
 - [x] Introduction to linked list 
-- [ ] Data Structures: Arrays vs Linked Lists 
-- [ ] Linked List - Implementation in C/C++ 
-- [ ] Linked List in C/C++ - Inserting a node at beginning 
-- [ ] Linked List in C/C++ - Insert a node at nth position 
-- [ ] Linked List in C/C++ - Delete a node at nth position 
+- [x] Data Structures: Arrays vs Linked Lists 
+- [x] Linked List - Implementation in C/C++ 
+- [x] Linked List in C/C++ - Inserting a node at beginning 
+- [x] Linked List in C/C++ - Insert a node at nth position 
+- [x] Linked List in C/C++ - Delete a node at nth position 
 - [ ] Reverse a linked list - Iterative method 
 - [ ] Print elements of a linked list in forward and reverse order using recursion 
 - [ ] Reverse a linked list using recursion 
@@ -124,7 +124,193 @@ For array created using "malloc" function in C (dynamic memory allocation), we c
 
   For **linked list**, it may be difficult for C/C++. It may cause segmentation fault or memory leak.
 
+### lined list implementation  
+* [C++中数组定义及初始化](https://www.cnblogs.com/SarahZhang0104/p/5749680.html)
+* [A Comprehensive Guide To Singly Linked List Using C++](https://www.codementor.io/codementorteam/a-comprehensive-guide-to-implementation-of-singly-linked-list-using-c_plus_plus-ondlm5azr#comments-ondlm5azr)
 
+```c++
+#include<iostream>
+
+struct Node
+{
+	int data;
+	Node* next;
+};
+
+class LinkedList
+{
+private:
+	Node *head, *tail;
+public:
+	LinkedList()  // constructor
+	{
+		head = NULL;
+		tail = NULL;
+	}
+
+	void CreateNode(int value)
+	{
+		Node* temp = new Node;
+		temp->data = value;
+		temp->next = NULL;
+
+		if (head == NULL)  // empty linked list
+		{
+			head = temp;
+			tail = temp;
+			temp = NULL;
+		}
+
+		else  // linked list is not empty
+		{
+			tail->next = temp;
+			tail = temp;
+		}
+	}
+	void Display()
+	{
+		Node* temp = new Node;
+		temp = head;
+		while (temp != NULL)
+		{
+			std::cout << temp->data << "\t";
+			temp = temp->next;
+		}
+		std::cout << "\n==================================================";
+	}
+	void Insert_start(int value)
+	{
+		Node* temp = new Node;
+		temp->data = value;
+		temp->next = head;
+		head = temp;
+	}
+	void Insert_end(int value)  // same to CreateNode
+	{
+		Node* temp = new Node;
+		temp->data = value;
+		temp->next = NULL;
+		tail->next = temp;
+		tail = temp;
+	}
+	void Insert_position(int value, int pos)
+	{
+		Node* temp = new Node;	// to be inserted Node between pre and cur
+		Node* pre = new Node;	// previous adjacent Node
+		Node* cur = new Node;	// current Node
+
+		cur = head;
+		for (int i = 0; i < pos; i++)
+		{
+			pre = cur;
+			cur = cur->next;
+		}
+		temp->data = value;
+		pre->next = temp;
+		temp->next = cur;
+	}
+	void Delete_start()
+	{
+		Node* temp = new Node;
+		temp = head;
+		head = head->next;
+		delete temp;
+
+		//head = head->next;
+	}
+	void Delete_end()
+	{
+		Node* cur = new Node;
+		Node* pre = new Node;
+
+		cur = head;
+		while (cur->next != NULL)
+		{
+			pre = cur;
+			cur = cur->next;  // traverse till the end, cur = tail
+		}
+		tail = pre;
+		pre->next = NULL;
+		delete cur;
+	}
+	void Delete_position(int pos)
+	{
+		Node* cur = new Node;
+		Node* left = new Node;
+
+		cur = head;
+		for (int i = 0; i < pos; i++)
+		{
+			left = cur;
+			cur = cur->next;
+		}
+		left->next = cur->next;
+	}
+
+};
+
+int main()
+{
+	LinkedList ll;
+	int values[4] = { 25,50,90,40 };
+	for (int value : values)
+	{
+		ll.CreateNode(value);
+	}
+	std::cout << "===========create a list==========================\n";
+	ll.Display();
+
+	std::cout << "\n==========Insert at beginning=====================\n";
+	ll.Insert_start(36);
+	ll.Display();
+
+	std::cout << "\n==========Insert at end===========================\n";
+	ll.Insert_end(73);
+	ll.Display();
+
+	std::cout << "\n==========Insert at 2-th position=================\n";
+	ll.Insert_position(98, 2);
+	ll.Display();
+
+	std::cout << "\n==========Delete start============================\n";
+	ll.Delete_start();
+	ll.Display();
+
+	std::cout << "\n==========Delete end==============================\n";
+	ll.Delete_end();
+	ll.Display();
+
+	std::cout << "\n==========Delete at 2-th position=================\n";
+	ll.Delete_position(2);
+	ll.Display();
+
+	std::cin.get();
+}
+```
+results:  
+```c++
+===========create a list==========================
+25      50      90      40
+==================================================
+==========Insert at beginning=====================
+36      25      50      90      40
+==================================================
+==========Insert at end===========================
+36      25      50      90      40      73
+==================================================
+==========Insert at 2-th position=================
+36      25      98      50      90      40      73
+==================================================
+==========Delete start============================
+25      98      50      90      40      73
+==================================================
+==========Delete end==============================
+25      98      50      90      40
+==================================================
+==========Delete at 2-th position=================
+25      98      90      40
+==================================================
+```
 
 
 
