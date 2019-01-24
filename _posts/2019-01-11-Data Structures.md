@@ -345,13 +345,28 @@ results:
 
 * Recursive Reverse
 
+### stack  
+#### 顺序栈  
+##### 链共享   
+#### 链栈  
 
 
 
+**Reference:**  
+
+- [数据结构 第6讲 链栈](https://blog.csdn.net/rainchxy/article/details/78189472)
+- [C及C++中typedef的简单使用指南](https://www.cnblogs.com/dmego/p/5944169.html)
+- [C++中的friend class](https://blog.csdn.net/messiran10/article/details/51838502)
+- [typedef specifier](https://en.cppreference.com/w/cpp/language/typedef)
+
+> `typedef` - creates an alias that can be used anywhere in place of a (possibly complex) type name.
+
+* [走进数据结构和算法（c++版）（4）——栈](https://blog.csdn.net/Hu_weichen/article/details/80520430)
 
 
 
-
+This pic helps me better understand linked stack:  
+![](https://i.loli.net/2019/01/24/5c498b51226f5.png)
 
 
 
