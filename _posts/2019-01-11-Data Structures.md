@@ -368,11 +368,56 @@ results:
 This pic helps me better understand linked stack:  
 ![](https://i.loli.net/2019/01/24/5c498b51226f5.png)
 
+* [【算法】表达式求值--逆波兰算法介绍](https://www.cnblogs.com/lulipro/p/7450886.html)
 
+> **中缀表达式转换为后缀表达式**  
+> 你需要设定一个栈SOP,和一个线性表 L 。SOP用于临时存储运算符和分界符( ，L用于存储后缀表达式。  
+> 遍历原始表达式中的每一个表达式元素  
+> （1）如果是操作数，则直接追加到 L中。只有 运算符 或者 分界符（ 才可以存放到 栈SOP中  
+> （2）如果是分界符  
+>          Ⅰ 如果是左括号 ( ， 则 直接压入SOP，等待下一个最近的 右括号 与之配对。  
+>           Ⅱ 如果是右括号），则说明有一对括号已经配对(在表达式输入无误的情况下)。不将它压栈，丢弃它，然后从SOP中出栈，得到元素e，将e依次追加到L里。一直循环，直到出栈元素e 是 左括号 ( ，同样丢弃他。  
+> （3）如果是运算符（用op1表示）  
+>         Ⅰ如果SOP栈顶元素（用op2表示） 不是运算符，则二者没有可比性，则直接将此运算符op1压栈。 例如栈顶是左括号 ( ，或者栈为空。  
+>          Ⅱ 如果SOP栈顶元素（用op2表示） 是运算符 ，则比较op1和 op2的优先级。如果op1 > op2 ，则直接将此运算符op1压栈。  
+> 如果不满足op1 > op2，则将op2出栈，并追加到L，重复步骤3。  
+> 也就是说，如果在SOP栈中，有2个相邻的元素都是运算符，则他们必须满足：下层运算符的优先级一定小于上层元素的优先级，才能相邻。  
+>  
+> 最后，如果SOP中还有元素，则依次弹出追加到L后，就得到了后缀表达式。  
 
+* [Reverse Polish notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation)
 
+```
+for each token in the postfix expression:
+  if token is an operator:
+    operand_2 ← pop from the stack
+    operand_1 ← pop from the stack
+    result ← evaluate token with operand_1 and operand_2
+    push result back onto the stack
+  else if token is an operand:
+    push token onto the stack
+result ← pop from the stack
+```
 
+**How to convert infix notation into postfix notation**
 
+1. create an empty array to fill in operands, an empty stack to fill in operators and delimiter
+
+2. if operands true, add it into array
+
+3. if delimiter true:
+
+   ​	 a. if delimiter means left parenthesis, push it into stack
+
+   ​	 b. if delimiter means right parenthesis, pop it out of stack until it meets first left parenthesis, ends.
+
+4. if read infix notation from left to right and meets operator (denoted as op1), and now the top of the stack is already a operator type (denoted as op2)
+
+   ​	a. if the priority of op1 > op2, push op1 into stack
+
+   ​	b. if the priority of op1 <= op2, pop out op1 into array
+
+5. finally, if finish reading full infix notation, the stack is still has some elements, then follow the FILO rule to pop them out and add them respectively into the array to generate the final postfix notation 
 
 
 
