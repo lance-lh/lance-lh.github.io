@@ -10,7 +10,7 @@
     <meta name="keywords"  content="">
     <meta name="theme-color" content="">
     
-    <title>Jekyll and Github Pages Deployment on Ubuntu - lance-lh</title>
+    <title>大话数据结构 - lance-lh</title>
 
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2018/11/11/Jekyll-and-Github-Pages-Deployment-on-Ubuntu/">
+    <link rel="canonical" href="http://localhost:4000/2019/02/25/Play-with-Data-Structure-Chapter-4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -285,17 +285,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Jekyll" title="Jekyll">Jekyll</a>
+                        <a class="tag" href="/tags/#Data-Structure" title="Data-Structure">Data-Structure</a>
                         
                     </div>
-                    <h1>Jekyll and Github Pages Deployment on Ubuntu</h1>
+                    <h1>大话数据结构</h1>
                     
                     
-                    <h2 class="subheading"></h2>
+                    <h2 class="subheading">Chapter 4</h2>
                     
-                    <span class="meta">Posted by Lance on November 11, 2018</span>
+                    <span class="meta">Posted by Lance on February 25, 2019</span>
                     
-                        <span id="/2018/11/11/Jekyll-and-Github-Pages-Deployment-on-Ubuntu/" class="leancloud_visitors" data-flag-title="Jekyll and Github Pages Deployment on Ubuntu">
+                        <span id="/2019/02/25/Play-with-Data-Structure-Chapter-4/" class="leancloud_visitors" data-flag-title="大话数据结构">
                         <span class="post-meta-divider">|</span>
                         <span class="post-meta-item-text"> View:  </span>
                         <span class="leancloud-visitors-count"></span>
@@ -318,120 +318,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="1-introduction">1. Introduction</h2>
-<p>This is a simple tutorial for deploying Jekyll and Github Pages on Ubuntu.</p>
+				<h2 id="content">Content</h2>
+<p><img src="https://i.loli.net/2019/02/25/5c73ef8b3c3b1.png" alt="" /></p>
 
-<h2 id="2-content">2. Content</h2>
-<h3 id="21-jekyll-on-ubuntu">2.1 Jekyll on Ubuntu</h3>
-<p><strong>1. Requirements</strong>
-​  <br />
-   Before you install Jekyll, you should install necessary required dependencies.</p>
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">ruby</span> <span class="n">ruby</span><span class="o">-</span><span class="n">dev</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span>
-</code></pre></div></div>
-<p><strong>2. Add environment variables</strong></p>
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">echo</span> <span class="err">'#</span> <span class="n">Install</span> <span class="n">Ruby</span> <span class="n">Gems</span> <span class="n">to</span> <span class="o">~/</span><span class="n">gems</span><span class="err">'</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
-<span class="n">echo</span> <span class="err">'</span><span class="n">export</span> <span class="n">GEM_HOME</span><span class="o">=</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">gems</span><span class="err">'</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
-<span class="n">echo</span> <span class="err">'</span><span class="n">export</span> <span class="n">PATH</span><span class="o">=</span><span class="err">$</span><span class="n">HOME</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">bin</span><span class="o">:</span><span class="err">$</span><span class="n">PATH</span><span class="err">'</span> <span class="o">&gt;&gt;</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
-<span class="n">source</span> <span class="o">~/</span><span class="p">.</span><span class="n">bashrc</span>
-</code></pre></div></div>
-<p>You can also use <code class="highlighter-rouge">sudo vim ~/.bashrc</code> to check the update.</p>
-
-<p><strong>3. Adding a New Gem Source</strong></p>
-
-<p>Because of slow download speed of official gem source, you need to substitute it with a reliable gem source.</p>
-
+<h2 id="reference">Reference</h2>
 <ul>
-  <li>check current gem source
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="n">sources</span> <span class="o">-</span><span class="n">l</span>
-</code></pre></div>    </div>
-  </li>
-  <li>remove official gem source
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="n">source</span> <span class="o">--</span><span class="n">remove</span> <span class="n">https</span><span class="o">:</span><span class="c1">//rubygems.org/</span>
-</code></pre></div>    </div>
-  </li>
-  <li>add a new gem source
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="n">source</span> <span class="o">--</span><span class="n">add</span> <span class="n">https</span><span class="o">:</span><span class="c1">//gems.ruby-china.org/</span>
-</code></pre></div>    </div>
-  </li>
-  <li>ensure official gem source not in the list
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="n">sources</span> <span class="o">-</span><span class="n">l</span>
-</code></pre></div>    </div>
-  </li>
+  <li><a href="https://book.douban.com/subject/6424904/">大话数据结构</a></li>
 </ul>
-
-<p><strong>4. Jekyll installation</strong></p>
-<div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="n">install</span> <span class="n">jekyll</span> <span class="n">bundler</span>
-</code></pre></div></div>
-<p><strong>5. Start Jekyll</strong></p>
-<ul>
-  <li>create project directory
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Jekyll</span> <span class="n">new</span> <span class="n">blog</span>
-</code></pre></div>    </div>
-  </li>
-  <li>start Jekyll
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cd</span> <span class="n">blog</span>
-<span class="n">Jekyll</span> <span class="n">serve</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h3 id="22-attention">2.2 Attention</h3>
-
-<ul>
-  <li>version check
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="o">-</span><span class="n">v</span>
-<span class="n">jekyll</span> <span class="o">-</span><span class="n">v</span>
-<span class="n">ruby</span> <span class="o">-</span><span class="n">v</span>
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>mutply ruby versions</p>
-  </li>
-  <li>
-    <p>gem source</p>
-  </li>
-  <li>
-    <p>Jekyll update issue<br />
-In _config.yml, gem -&gt; plugins</p>
-  </li>
-  <li>missing package
-add package name to Gemfile
-or
-    <div class="language-objc highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gem</span> <span class="n">install</span> <span class="n">package_name</span>
-</code></pre></div>    </div>
-  </li>
-</ul>
-
-<h2 id="3-reference">3. Reference</h2>
-
-<ul>
-  <li>
-    <p><a href="https://jekyllrb.com/docs/installation/ubuntu/">Jekyll on Ubuntu</a></p>
-  </li>
-  <li>
-    <p><a href="https://www.jianshu.com/p/73482c2f577c">github博客安装jekyll的RUBY更换源</a></p>
-  </li>
-  <li>
-    <p><a href="https://ruby.taobao.org/">RubyGems 镜像</a></p>
-  </li>
-  <li>
-    <p><a href="https://www.kaijia.me/2014/08/ubuntu-14-04-switch-defaults-to-ruby-2-0/">Ubuntu 14.04切换Ruby默认版本为2.0方法</a></p>
-  </li>
-</ul>
-
 
 
                 <hr style="visibility: hidden;">
 
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2018/11/12/Commonly-Used-Git-Commands/" data-toggle="tooltip" data-placement="top" title="Commonly Used Git Commands">
-                        Next<br>
-                        <span>Commonly Used Git Commands</span>
+                    <li class="previous">
+                        <a href="/2019/01/11/Data-Structures/" data-toggle="tooltip" data-placement="top" title="Data Structures">
+                        Previous<br>
+                        <span>Data Structures</span>
                         </a>
                     </li>
+                    
                     
                 </ul>
 
