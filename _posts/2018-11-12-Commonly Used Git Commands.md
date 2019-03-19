@@ -94,6 +94,7 @@ git reset --hard origin/master # HEAD points to the newest version
 ```
 
 ***
+### git提交到remote repo冲突
 ![](https://i.loli.net/2019/03/01/5c7887087635e.png)
 * [git提交到远程藏库冲突解决](https://blog.csdn.net/gddxz_zhouhao/article/details/53070317)
 
@@ -101,10 +102,13 @@ git reset --hard origin/master # HEAD points to the newest version
 两人同时fetch了一个分支。 第一个人修改后提交，第二个人提交就失败。
 
 *解决方法*
+
 1.强制推送
-$ `git push -f` 
-可以提交，会将remote上第一个人的改动冲掉，比较暴力，不太好。
+
+`git push -f` 可以提交，会将remote上第一个人的改动冲掉，比较暴力，不太好。
+
 2.正常解决
+
 先 `git fetch origin` 然后`git merge origin/master`, 和本地分支合并, 之后再`push`。  
 
 * [GIT 的ORIGIN和MASTER分析](https://www.cnblogs.com/MarkTang/p/5759554.html)  
@@ -129,7 +133,7 @@ $ `git push -f`
 >
 > 同时，Git 会建立一个属于你自己的本地master 分支，它指向的是你刚刚从remote server传到你本地的副本。随着你不断的改动文件，git add, git commit，master的指向会自动移动，你也可以通过merge（fast forward）来移动master的指向。
 >
->  $git branch -a (to show all the branches git knows about)
+> `git branch -a` (to show all the branches git knows about)
 >
 > \* master
 >
@@ -139,7 +143,7 @@ $ `git push -f`
 >
 >  
 >
-> $git branch -r (to show remote branches git knows about)
+> `git branch -r` (to show remote branches git knows about)
 >
 >   origin/HEAD -> origin/master
 >
@@ -149,29 +153,45 @@ $ `git push -f`
 >
 > 可以发现，**master就是local branch，origin/master是remote branch（master is a branch in the local repository. remotes/origin/master is a branch named master on the remote named origin）**
 >
-> $git diff origin/master master （show me the changes between the remote master branch and my master branch).
+> `git diff origin/master master` （show me the changes between the remote master branch and my master branch).
 >
 > 需要注意的是，**remotes/origin/master和origin/master的指向是相同的**
 >
-> $git diff origin/master remotes/origin/master
+> `git diff origin/master remotes/origin/master`
 >
 >  
 >
-> git push origin master
+> `git push origin master`
 >
 > origin指定了你要push到哪个remote
 >
 > master其实是一个“refspec”，正常的“refspec”的形式为”+<src>:<dst>”，冒号前表示local branch的名字，冒号后表示remote repository下 branch的名字。注意，如果你省略了<dst>，git就认为你想push到remote repository下和local branch相同名字的branch。听起来有点拗口，再解释下，push是怎么个push法，就是把本地branch指向的commit push到remote repository下的branch，比如
 >
-> $git push origin master:master (在local repository中找到名字为master的branch，使用它去更新remote repository下名字为master的branch，如果remote repository下不存在名字是master的branch，那么新建一个)
+> `git push origin master`:master (在local repository中找到名字为master的branch，使用它去更新remote repository下名字为master的branch，如果remote repository下不存在名字是master的branch，那么新建一个)
 >
-> $git push origin master （省略了<dst>，等价于“git push origin master:master”）
+> `git push origin master` （省略了<dst>，等价于“git push origin master:master”）
 >
-> $git push origin master:refs/for/mybranch (在local repository中找到名字为master的branch，用他去更新remote repository下面名字为mybranch的branch)
+> `git push origin master:refs/for/mybranch` (在local repository中找到名字为master的branch，用他去更新remote repository下面名字为mybranch的branch)
 >
-> $git push origin HEAD:refs/for/mybranch （HEAD指向当前工作的branch，master不一定指向当前工作的branch，所以我觉得用HEAD还比master好些）
+> `git push origin HEAD:refs/for/mybranch` （HEAD指向当前工作的branch，master不一定指向当前工作的branch，所以我觉得用HEAD还比master好些）
 >
-> $git push origin :mybranch （再origin repository里面查找mybranch，删除它。用一个空的去更新它，就相当于删除了）
+> `git push origin :mybranch` （再origin repository里面查找mybranch，删除它。用一个空的去更新它，就相当于删除了）
+
+### git push频繁需要账号密码  
+将HTTPS连接方式改为SSH
+
+1. `git remote -v`查看远程连接方式
+
+2. `git remote rm origin`删除之前的HTTPS连接方式
+
+3. 复制远程repo的SSH地址
+
+4. `git remote add origin SSH地址`,更改为SSH连接方式
+
+5. 再用`git remote -v`查看远程连接方式
+
+6. `git push`不需要再输入账号密码了
+
 
 ## Reference  
 - [Git教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)  
