@@ -10,7 +10,7 @@
     <meta name="keywords"  content="">
     <meta name="theme-color" content="">
     
-    <title>Commonly Used Git Commands - lance-lh</title>
+    <title>IP notes - lance-lh</title>
 
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/2018/11/12/Commonly-Used-Git-Commands/">
+    <link rel="canonical" href="http://localhost:4000/2019/03/16/IP-notes/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -285,17 +285,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Git" title="Git">Git</a>
+                        <a class="tag" href="/tags/#Computer-Networking" title="Computer-Networking">Computer-Networking</a>
                         
                     </div>
-                    <h1>Commonly Used Git Commands</h1>
+                    <h1>IP notes</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Lance on November 12, 2018</span>
+                    <span class="meta">Posted by Lance on March 16, 2019</span>
                     
-                        <span id="/2018/11/12/Commonly-Used-Git-Commands/" class="leancloud_visitors" data-flag-title="Commonly Used Git Commands">
+                        <span id="/2019/03/16/IP-notes/" class="leancloud_visitors" data-flag-title="IP notes">
                         <span class="post-meta-divider">|</span>
                         <span class="post-meta-item-text"> View:  </span>
                         <span class="leancloud-visitors-count"></span>
@@ -318,193 +318,26 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="content">Content</h2>
+				<p>This is a note about calculation in <strong>IP</strong> part of <strong>Computer Networking</strong>.</p>
 
-<p><img src="https://i.loli.net/2018/12/22/5c1de5e71e490.png" alt="" /></p>
-
-<h3 id="enter-the-local-directory-first">Enter the local directory first</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>directory
-</code></pre></div></div>
-<h3 id="initialize-the-folder">Initialize the folder</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
-</code></pre></div></div>
-<h3 id="add-files-to-staging-area">Add files to staging area</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add &lt;file&gt;
-git add <span class="nt">-all</span>
-</code></pre></div></div>
-<h3 id="add-files-to-repository">Add files to repository</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-m</span> &lt;message&gt;
-</code></pre></div></div>
-<h3 id="show-file-status-of-working-directory">Show file status of working directory</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git status
-</code></pre></div></div>
-<h3 id="show-modified-content-of-file-in-working-directory">Show modified content of file in working directory</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff &lt;file&gt;
-</code></pre></div></div>
-<h3 id="show-history">Show history</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log
-</code></pre></div></div>
-<h3 id="change-version">Change version</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset <span class="nt">--hard</span> commit_id
-git reset <span class="nt">--hard</span> HEAD^
-git reset <span class="nt">--hard</span> HEAD^^
-</code></pre></div></div>
-<h3 id="watch-command-history">Watch command history</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reflog
-</code></pre></div></div>
-<h3 id="discard-changes-in-working-directory">Discard changes in working directory</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout <span class="nt">--file</span>
-</code></pre></div></div>
-<h3 id="remove-files-from-the-working-tree-and-from-the-index">Remove files from the working tree and from the index</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1.
-git <span class="nb">rm </span>test.txt
-git commit <span class="nt">-m</span> <span class="s2">"delete test.txt"</span>
-git push  
-2. 
-<span class="nb">rm </span>test.txt
-git commit <span class="nt">-am</span> <span class="s2">"delete test.txt"</span>
-git push  
-3.
-git <span class="nb">rm </span>folder <span class="nt">-r</span> <span class="nt">-f</span> 
-git commit <span class="nt">-m</span> <span class="s2">"delete folder"</span>
-git push  
-</code></pre></div></div>
-<h3 id="connecting-to-github">Connecting to Github</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote add origin git@github.com:username/repository_name.git
-git push <span class="nt">-u</span> origin master
-git push origin master
-</code></pre></div></div>
-
-<h3 id="branch-operation">Branch operation</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch
-git checkout <span class="nt">-b</span> dev
-git checkout master
-git merge dev  <span class="c"># merge dev branch into current branch</span>
-git branch <span class="nt">-d</span> dev
-</code></pre></div></div>
-<h3 id="overwrite-local-repo">Overwrite local repo</h3>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git fetch <span class="nt">--all</span> <span class="c"># download remote repo</span>
-git reset <span class="nt">--hard</span> origin/master <span class="c"># HEAD points to the newest version</span>
-</code></pre></div></div>
-
-<hr />
-<h3 id="git提交到remote-repo冲突">git提交到remote repo冲突</h3>
-<p><img src="https://i.loli.net/2019/03/01/5c7887087635e.png" alt="" /></p>
-<ul>
-  <li><a href="https://blog.csdn.net/gddxz_zhouhao/article/details/53070317">git提交到远程藏库冲突解决</a></li>
-</ul>
-
-<p><em>原因</em>
-两人同时fetch了一个分支。 第一个人修改后提交，第二个人提交就失败。</p>
-
-<p><em>解决方法</em></p>
-
-<p>1.强制推送</p>
-
-<p><code class="highlighter-rouge">git push -f</code> 可以提交，会将remote上第一个人的改动冲掉，比较暴力，不太好。</p>
-
-<p>2.正常解决</p>
-
-<p>先 <code class="highlighter-rouge">git fetch origin</code> 然后<code class="highlighter-rouge">git merge origin/master</code>, 和本地分支合并, 之后再<code class="highlighter-rouge">push</code>。</p>
+<p>Some items need to be clarified as follows:</p>
 
 <ul>
-  <li><a href="https://www.cnblogs.com/MarkTang/p/5759554.html">GIT 的ORIGIN和MASTER分析</a></li>
+  <li>net id</li>
+  <li>broadcasting addr</li>
+  <li>IP addr range can be allocated
+    <ul>
+      <li>maximum nums of host</li>
+      <li>nums of host can be used</li>
+    </ul>
+  </li>
+  <li>host id</li>
+  <li>subnet mak</li>
+  <li>expansion</li>
 </ul>
 
-<blockquote>
-  <p>首先要明确一点，对git的操作是围绕3个大的步骤来展开的（其实几乎所有的SCM都是这样）</p>
+<p><img src="https://i.loli.net/2019/03/22/5c945aa26811b.png" alt="" /></p>
 
-  <ol>
-    <li>
-      <p>从git取数据（git clone）</p>
-    </li>
-    <li>
-      <p>改动代码</p>
-    </li>
-    <li>
-      <p>将改动传回git（git push）</p>
-    </li>
-  </ol>
-
-  <p>这3个步骤又涉及到两个repository，一个是remote repository，再远程服务器上，一个是local repository，再自己工作区上。其中</p>
-
-  <p>1, 3两个步骤涉及到remote server/remote repository/remote branch，</p>
-
-  <p>2涉及到local repository/local branch。git clone 会根据你指定的remote server/repository/branch，拷贝一个副本到你本地，再git push之前，你对所有文件的改动都是在你自己本地的local repository来做的，你的改动(local branch)和remote branch是独立（并行）的。Gitk显示的就是local repository。</p>
-
-  <p>在clone完成之后，<strong>Git 会自动为你将此远程仓库命名为origin（origin只相当于一个别名，运行git remote –v或者查看.git/config可以看到origin的含义）</strong>，并下载其中所有的数据，建立一个指向它的master 分支的指针，我们用(远程仓库名)/(分支名) 这样的形式表示远程分支，所以origin/master指向的是一个remote branch（从那个branch我们clone数据到本地），但你无法在本地更改其数据。</p>
-
-  <p>同时，Git 会建立一个属于你自己的本地master 分支，它指向的是你刚刚从remote server传到你本地的副本。随着你不断的改动文件，git add, git commit，master的指向会自动移动，你也可以通过merge（fast forward）来移动master的指向。</p>
-
-  <p><code class="highlighter-rouge">git branch -a</code> (to show all the branches git knows about)</p>
-
-  <p>* master</p>
-
-  <p>remotes/origin/HEAD -&gt; origin/master</p>
-
-  <p>remotes/origin/master</p>
-
-  <p><code class="highlighter-rouge">git branch -r</code> (to show remote branches git knows about)</p>
-
-  <p>origin/HEAD -&gt; origin/master</p>
-
-  <p>origin/master</p>
-
-  <p>可以发现，<strong>master就是local branch，origin/master是remote branch（master is a branch in the local repository. remotes/origin/master is a branch named master on the remote named origin）</strong></p>
-
-  <p><code class="highlighter-rouge">git diff origin/master master</code> （show me the changes between the remote master branch and my master branch).</p>
-
-  <p>需要注意的是，<strong>remotes/origin/master和origin/master的指向是相同的</strong></p>
-
-  <p><code class="highlighter-rouge">git diff origin/master remotes/origin/master</code></p>
-
-  <p><code class="highlighter-rouge">git push origin master</code></p>
-
-  <p>origin指定了你要push到哪个remote</p>
-
-  <p>master其实是一个“refspec”，正常的“refspec”的形式为”+<src>:<dst>”，冒号前表示local branch的名字，冒号后表示remote repository下 branch的名字。注意，如果你省略了<dst>，git就认为你想push到remote repository下和local branch相同名字的branch。听起来有点拗口，再解释下，push是怎么个push法，就是把本地branch指向的commit push到remote repository下的branch，比如</dst></dst></src></p>
-
-  <p><code class="highlighter-rouge">git push origin master</code>:master (在local repository中找到名字为master的branch，使用它去更新remote repository下名字为master的branch，如果remote repository下不存在名字是master的branch，那么新建一个)</p>
-
-  <p><code class="highlighter-rouge">git push origin master</code> （省略了<dst>，等价于“git push origin master:master”）</dst></p>
-
-  <p><code class="highlighter-rouge">git push origin master:refs/for/mybranch</code> (在local repository中找到名字为master的branch，用他去更新remote repository下面名字为mybranch的branch)</p>
-
-  <p><code class="highlighter-rouge">git push origin HEAD:refs/for/mybranch</code> （HEAD指向当前工作的branch，master不一定指向当前工作的branch，所以我觉得用HEAD还比master好些）</p>
-
-  <p><code class="highlighter-rouge">git push origin :mybranch</code> （再origin repository里面查找mybranch，删除它。用一个空的去更新它，就相当于删除了）</p>
-</blockquote>
-
-<h3 id="git-push频繁需要账号密码">git push频繁需要账号密码</h3>
-<p>将HTTPS连接方式改为SSH</p>
-
-<ol>
-  <li>
-    <p><code class="highlighter-rouge">git remote -v</code>查看远程连接方式</p>
-  </li>
-  <li>
-    <p><code class="highlighter-rouge">git remote rm origin</code>删除之前的HTTPS连接方式</p>
-  </li>
-  <li>
-    <p>复制远程repo的SSH地址</p>
-  </li>
-  <li>
-    <p><code class="highlighter-rouge">git remote add origin SSH地址</code>,更改为SSH连接方式</p>
-  </li>
-  <li>
-    <p>再用<code class="highlighter-rouge">git remote -v</code>查看远程连接方式</p>
-  </li>
-  <li>
-    <p><code class="highlighter-rouge">git push</code>不需要再输入账号密码了</p>
-  </li>
-</ol>
-
-<h2 id="reference">Reference</h2>
-<ul>
-  <li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">Git教程</a></li>
-  <li><a href="http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf">Git Cheat Sheet</a></li>
-  <li><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html">常用 Git 命令清单</a></li>
-</ul>
 
 
                 <hr style="visibility: hidden;">
@@ -512,19 +345,12 @@ git reset <span class="nt">--hard</span> origin/master <span class="c"># HEAD po
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2018/11/11/Jekyll-and-Github-Pages-Deployment-on-Ubuntu/" data-toggle="tooltip" data-placement="top" title="Jekyll and Github Pages Deployment on Ubuntu">
+                        <a href="/2019/02/25/Play-with-Data-Structure-Chapter-4/" data-toggle="tooltip" data-placement="top" title="大话数据结构">
                         Previous<br>
-                        <span>Jekyll and Github Pages Deployment on Ubuntu</span>
+                        <span>大话数据结构</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2018/11/12/IEEE-Institutional-Sign-In-Problem/" data-toggle="tooltip" data-placement="top" title="IEEE Institution Sign In Problem">
-                        Next<br>
-                        <span>IEEE Institution Sign In Problem</span>
-                        </a>
-                    </li>
                     
                 </ul>
 
