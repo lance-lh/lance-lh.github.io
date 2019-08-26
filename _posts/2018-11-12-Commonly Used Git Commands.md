@@ -181,16 +181,41 @@ git reset --hard origin/master # HEAD points to the newest version
 将HTTPS连接方式改为SSH
 
 1. `git remote -v`查看远程连接方式
-
 2. `git remote rm origin`删除之前的HTTPS连接方式
-
 3. 复制远程repo的SSH地址
-
 4. `git remote add origin SSH地址`,更改为SSH连接方式
-
 5. 再用`git remote -v`查看远程连接方式
-
 6. `git push`不需要再输入账号密码了
+
+### Unkown Author
+
+It is because you don't set your user info, just use default git setting.
+
+1. backup your file (conflict)
+
+2. `git reset --hard xxx` to reset your local repo
+
+   xxx means your previous right id
+
+3. `git push -f` to enable remote repo update
+
+4. Run from repository path :
+
+   - `git config --local -e `
+
+   - add these to the file and save
+
+   ```
+   [user]
+       name = your-github-name
+       email = your-github-email
+   ```
+
+5. add file (conflict) to local repo
+
+6. `git add .`, `git commit -m "..."` and`git push origin master `
+
+   complete!
 
 
 ## Reference  
